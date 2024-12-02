@@ -1,78 +1,126 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProyectoProgrmacion.DetallesPedidosPage"
              BackgroundColor="#f0f0f0">
-    <VerticalStackLayout Padding="20">
-        <!-- Título -->
-        <Label Text="Detalles del Pedido"
-               FontSize="30"
-               FontAttributes="Bold"
-               HorizontalOptions="Center" 
-               TextColor="#004d40"/>
+    <ScrollView>
+        <VerticalStackLayout Padding="20">
+            <!-- Título -->
+            <Label Text="Detalles del Pedido"
+                   FontSize="30"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center" 
+                   TextColor="#004d40"/>
 
-        <!-- Pedido Personalizado -->
-        <Label Text="Pedido Personalizado" 
-               FontSize="20" 
-               TextColor="#00695c" 
-               Margin="0,10,0,5"/>
-        <Entry x:Name="PedidoPersonalizadoEntry"
-               Placeholder="Escribe los detalles de tu pedido"
-               BackgroundColor="#e0f2f1"
-               Margin="0,0,0,20" />
+            <!-- Pedido Personalizado -->
+            <Label Text="Pedido Personalizado" 
+                   FontSize="20" 
+                   TextColor="#00695c" 
+                   Margin="0,10,0,5"/>
+            <Entry x:Name="PedidoPersonalizadoEntry"
+                   Placeholder="Escribe los detalles de tu pedido"
+                   BackgroundColor="#e0f2f1"
+                   Margin="0,0,0,20" />
 
-        <!-- Lista de Pedidos Predefinidos -->
-        <Label Text="Selecciona un Pedido Predefinido" 
-               FontSize="20" 
-               TextColor="#00695c" 
-               Margin="0,10,0,5"/>
-        <Picker x:Name="PedidosPicker"
-                Title="Selecciona un Pedido"
-                SelectedIndexChanged="OnPedidoPredefinidoSelected">
-            <Picker.Items>
-                <x:String>Pedido Predefinido 1</x:String>
-                <x:String>Pedido Predefinido 2</x:String>
-                <x:String>Pedido Predefinido 3</x:String>
-            </Picker.Items>
-        </Picker>
+            <!-- Nombre del Cliente -->
+            <Label Text="Nombre del Cliente" 
+                   FontSize="20" 
+                   TextColor="#00695c" 
+                   Margin="0,10,0,5"/>
+            <Entry x:Name="NombreClienteEntry"
+                   Placeholder="Escribe el nombre del cliente"
+                   BackgroundColor="#e0f2f1"
+                   Margin="0,0,0,20" />
 
-        <!-- ListView para mostrar los pedidos -->
-        <ListView x:Name="PedidosListView" ItemTapped="OnPedidoTapped">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <StackLayout>
-                            <Label Text="{Binding PedidoNombre}" 
-                                   FontSize="18" 
-                                   TextColor="#004d40"/>
-                            <Label Text="{Binding FechaPedido}" 
-                                   FontSize="14" 
-                                   TextColor="#00796b"/>
-                            <StackLayout Orientation="Horizontal">
-                                <Button Text="Editar"
-                                        BackgroundColor="#004d40"
-                                        TextColor="White"
-                                        Clicked="OnEditPedidoClicked" />
-                                <Button Text="Eliminar"
-                                        BackgroundColor="#d32f2f"
-                                        TextColor="White"
-                                        Clicked="OnDeletePedidoClicked" />
+            <!-- Fecha de Entrega con DatePicker -->
+            <Label Text="Fecha de Entrega" 
+                   FontSize="20" 
+                   TextColor="#00695c" 
+                   Margin="0,10,0,5"/>
+            <DatePicker x:Name="FechaEntregaDatePicker"
+                        BackgroundColor="#e0f2f1"
+                        Margin="0,0,0,20" />
+
+            <!-- Detalles de la Pieza -->
+            <Label Text="Detalles de la Pieza" 
+                   FontSize="20" 
+                   TextColor="#00695c" 
+                   Margin="0,10,0,5"/>
+            <Entry x:Name="DetallesPiezaEntry"
+                   Placeholder="Escribe detalles de la pieza"
+                   BackgroundColor="#e0f2f1"
+                   Margin="0,0,0,20" />
+
+            <!-- Lista de Pedidos Predefinidos -->
+            <Label Text="Selecciona un Pedido Predefinido" 
+                   FontSize="20" 
+                   TextColor="#00695c" 
+                   Margin="0,10,0,5"/>
+            <Picker x:Name="PedidosPicker"
+                    Title="Selecciona un Pedido"
+                    SelectedIndexChanged="OnPedidoPredefinidoSelected">
+                <Picker.Items>
+                    <x:String>Pedido Predefinido 1</x:String>
+                    <x:String>Pedido Predefinido 2</x:String>
+                    <x:String>Pedido Predefinido 3</x:String>
+                </Picker.Items>
+            </Picker>
+
+            <!-- ListView para mostrar los pedidos -->
+            <ListView x:Name="PedidosListView" ItemTapped="OnPedidoTapped">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Label Text="Pedido personalizado:"
+                                       FontSize="18" 
+                                       TextColor="#004d40"/>
+                                <Label Text="{Binding PedidoNombre}" 
+                                       FontSize="18" 
+                                       TextColor="#004d40"/>
+                                <Label Text="Nombre del cliente:"
+                                       FontSize="14" 
+                                       TextColor="#00796b"/>
+                                <Label Text="{Binding NombreCliente}" 
+                                       FontSize="14" 
+                                       TextColor="#00796b"/>
+                                <Label Text="Fecha de entrega:"
+                                       FontSize="14" 
+                                       TextColor="#00796b"/>
+                                <Label Text="{Binding FechaEntrega}" 
+                                       FontSize="14" 
+                                       TextColor="#00796b"/>
+                                <Label Text="Detalles de la pieza:"
+                                       FontSize="14" 
+                                       TextColor="#00796b"/>
+                                <Label Text="{Binding DetallesPieza}" 
+                                       FontSize="14" 
+                                       TextColor="#00796b"/>
+                                <StackLayout Orientation="Horizontal">
+                                    <Button Text="Editar"
+                                            BackgroundColor="#004d40"
+                                            TextColor="White"
+                                            Clicked="OnEditPedidoClicked" />
+                                    <Button Text="Eliminar"
+                                            BackgroundColor="#d32f2f"
+                                            TextColor="White"
+                                            Clicked="OnDeletePedidoClicked" />
+                                </StackLayout>
                             </StackLayout>
-                        </StackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
 
-        <!-- Botones -->
-        <Button Text="Agregar Pedido"
-                BackgroundColor="#004d40"
-                TextColor="White"
-                Clicked="OnAddPedidoClicked" />
+            <!-- Botones -->
+            <Button Text="Agregar Pedido"
+                    BackgroundColor="#004d40"
+                    TextColor="White"
+                    Clicked="OnAddPedidoClicked" />
 
-        <Button Text="Ir a la siguiente página"
-                BackgroundColor="#00695c"
-                TextColor="White"
-                Clicked="OnNextPageClicked" />
-    </VerticalStackLayout>
+            <Button Text="Ir a la siguiente página"
+                    BackgroundColor="#00695c"
+                    TextColor="White"
+                    Clicked="OnNextPageClicked" />
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
