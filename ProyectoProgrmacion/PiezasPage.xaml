@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProyectoProgrmacion.PiezasPage"
+             BackgroundColor="#e0f2f1">
+    <VerticalStackLayout Padding="20">
+        <Label Text="Piezas Disponibles"
+               FontSize="30"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               TextColor="#004d40"/>
+
+        <ListView x:Name="PiezasListView">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding NombrePieza}" Detail="{Binding Precio}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Button Text="Ir a la siguiente página"
+                BackgroundColor="#004d40"
+                TextColor="White"
+                Clicked="OnNextPageClicked" />
+    </VerticalStackLayout>
+</ContentPage>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProyectoProgrmacion.EncabezadoPedidosPage"
+             BackgroundColor="#ffffff">
+    <VerticalStackLayout Padding="20">
+        <Label Text="Encabezado del Pedido"
+               FontSize="30"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               TextColor="#004d40"/>
+
+        <Entry x:Name="PedidoEntry" 
+               Placeholder="Ingrese el encabezado del pedido" 
+               Margin="0,20,0,0" 
+               BackgroundColor="#e0f2f1" />
+
+        <Button Text="Guardar Pedido"
+                BackgroundColor="#004d40"
+                TextColor="White"
+                Clicked="OnSavePedidoClicked" />
+
+        <Button Text="Ir a la siguiente página"
+                BackgroundColor="#00695c"
+                TextColor="White"
+                Clicked="OnNextPageClicked" />
+    </VerticalStackLayout>
+</ContentPage>
