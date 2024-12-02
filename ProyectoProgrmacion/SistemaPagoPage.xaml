@@ -3,21 +3,74 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProyectoProgrmacion.SistemaPagoPage"
              BackgroundColor="#ffffff">
-    <VerticalStackLayout Padding="20">
-        <Label Text="Sistema de Pago"
-               FontSize="30"
-               FontAttributes="Bold"
-               HorizontalOptions="Center"
-               TextColor="#004d40"/>
+    <ScrollView>
+        <VerticalStackLayout Padding="20">
+            <!-- Título -->
+            <Label Text="Sistema de Pago"
+                   FontSize="30"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   TextColor="#004d40"/>
 
-        <Entry x:Name="PagoEntry" 
-               Placeholder="Ingrese cantidad a pagar" 
-               Margin="0,20,0,0" 
-               BackgroundColor="#e0f2f1" />
+            <!-- Campo de entrada para la cantidad a pagar -->
+            <Label Text="Ingrese la cantidad a pagar:"
+                   FontSize="18"
+                   TextColor="#004d40" />
+            <Entry x:Name="PagoEntry"
+                   Placeholder="Ingrese cantidad a pagar"
+                   Keyboard="Numeric"
+                   BackgroundColor="#ffffff" />
 
-        <Button Text="Realizar Pago"
-                BackgroundColor="#004d40"
-                TextColor="White"
-                Clicked="OnPagoClicked" />
-    </VerticalStackLayout>
+            <!-- Selector de Fecha -->
+            <Label Text="Seleccione la fecha de pago:"
+                   FontSize="18"
+                   TextColor="#004d40" />
+            <DatePicker x:Name="FechaPagoPicker"
+                        Date="{Binding FechaPago}"
+                        BackgroundColor="#ffffff" />
+
+            <!-- Método de pago -->
+            <Label Text="Seleccione el método de pago:"
+                   FontSize="18"
+                   TextColor="#004d40" />
+            <Picker x:Name="MetodoPagoPicker"
+                    SelectedIndexChanged="OnMetodoPagoSelected"
+                    BackgroundColor="#ffffff">
+                <Picker.Items>
+                    <x:String>Tarjeta de Crédito</x:String>
+                    <x:String>Tarjeta de Débito</x:String>
+                    <x:String>PayPal</x:String>
+                </Picker.Items>
+            </Picker>
+
+            <!-- Botón para realizar el pago -->
+            <Button Text="Realizar Pago"
+                    BackgroundColor="#004d40"
+                    TextColor="White"
+                    Clicked="OnPagoClicked" />
+
+            <!-- Detalles del pago -->
+            <Label Text="Detalles del Pago Realizado"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   TextColor="#004d40"
+                   Margin="20,20,0,0"/>
+
+            <!-- Información de pago -->
+            <Label x:Name="PagoCantidadLabel"
+                   FontSize="16"
+                   TextColor="#00796b"
+                   Margin="20,5,0,0"/>
+
+            <Label x:Name="PagoFechaLabel"
+                   FontSize="16"
+                   TextColor="#00796b"
+                   Margin="20,5,0,0"/>
+
+            <Label x:Name="MetodoPagoLabel"
+                   FontSize="16"
+                   TextColor="#00796b"
+                   Margin="20,5,0,0"/>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
