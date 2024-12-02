@@ -36,13 +36,21 @@
             </Picker.Items>
         </Picker>
 
-        <!-- Botón para Guardar Pedido -->
-        <Button Text="Guardar Pedido"
+        <!-- ListView para mostrar los pedidos -->
+        <ListView x:Name="PedidosListView" ItemTapped="OnPedidoTapped">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding PedidoNombre}" Detail="{Binding FechaPedido}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <!-- Botones -->
+        <Button Text="Agregar Pedido"
                 BackgroundColor="#004d40"
                 TextColor="White"
-                Clicked="OnSavePedidoClicked" />
+                Clicked="OnAddPedidoClicked" />
 
-        <!-- Navegar a la siguiente página -->
         <Button Text="Ir a la siguiente página"
                 BackgroundColor="#00695c"
                 TextColor="White"
