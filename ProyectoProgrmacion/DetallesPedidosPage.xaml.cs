@@ -3,6 +3,7 @@
     public partial class DetallesPedidosPage : ContentPage
     {
         private List<Pedido> pedidosList = new List<Pedido>();
+        private Pedido pedidoSeleccionado;
 
         public DetallesPedidosPage()
         {
@@ -37,36 +38,57 @@
             }
         }
 
-        // Método para manejar la edición de un pedido cuando se toca uno de la lista
+        // Método para manejar la selección de un pedido para editar
         private void OnPedidoTapped(object sender, ItemTappedEventArgs e)
         {
-            var pedidoSeleccionado = e.Item as Pedido;
+            pedidoSeleccionado = e.Item as Pedido;
 
             if (pedidoSeleccionado != null)
             {
-                // Puedes hacer una edición de los datos seleccionados o navegar a una nueva página de edición
-                DisplayAlert("Editar Pedido", $"Seleccionaste: {pedidoSeleccionado.PedidoNombre}", "OK");
+                PedidoPersonalizadoEntry.Text = pedidoSeleccionado.PedidoNombre; // Rellenar el Entry con el pedido seleccionado
+            }
+        }
+
+        // Método para editar un pedido
+        private void OnEditPedidoClicked(object sender, EventArgs e)
+        {
+            if (pedidoSeleccionado != null)
+            {
+                pedidoSeleccionado.PedidoNombre = PedidoPersonalizadoEntry.Text;
+                pedidoSeleccionado.FechaPedido = DateTime.Now.ToString("yyyy-MM-dd"); // Se actualiza la fecha al editar
+
+                // Actualizamos la lista
+                PedidosListView.ItemsSource = null;
+                PedidosListView.ItemsSource = pedidosList;
+
+                DisplayAlert("Pedido Editado", "El pedido ha sido actualizado.", "OK");
+            }
+            else
+            {
+                DisplayAlert("Error", "Selecciona un pedido para editar.", "OK");
             }
         }
 
         // Método para eliminar un pedido
         private void OnDeletePedidoClicked(object sender, EventArgs e)
         {
-            if (PedidosListView.SelectedItem != null)
+            if (pedidoSeleccionado != null)
             {
-                var pedidoSeleccionado = PedidosListView.SelectedItem as Pedido;
                 pedidosList.Remove(pedidoSeleccionado);
                 PedidosListView.ItemsSource = null;
                 PedidosListView.ItemsSource = pedidosList;
 
                 DisplayAlert("Pedido Eliminado", "El pedido ha sido eliminado correctamente.", "OK");
             }
+            else
+            {
+                DisplayAlert("Error", "Selecciona un pedido para eliminar.", "OK");
+            }
         }
 
         // Método para manejar la selección de un pedido predefinido
         private void OnPedidoPredefinidoSelected(object sender, EventArgs e)
         {
-            // Realizar cualquier acción que se necesite al seleccionar un pedido predefinido
             var picker = sender as Picker;
             var selectedPedido = picker.SelectedItem?.ToString();
             DisplayAlert("Pedido Seleccionado", $"Has seleccionado: {selectedPedido}", "OK");

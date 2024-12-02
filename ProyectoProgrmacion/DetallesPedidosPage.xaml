@@ -40,7 +40,26 @@
         <ListView x:Name="PedidosListView" ItemTapped="OnPedidoTapped">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextCell Text="{Binding PedidoNombre}" Detail="{Binding FechaPedido}" />
+                    <ViewCell>
+                        <StackLayout>
+                            <Label Text="{Binding PedidoNombre}" 
+                                   FontSize="18" 
+                                   TextColor="#004d40"/>
+                            <Label Text="{Binding FechaPedido}" 
+                                   FontSize="14" 
+                                   TextColor="#00796b"/>
+                            <StackLayout Orientation="Horizontal">
+                                <Button Text="Editar"
+                                        BackgroundColor="#004d40"
+                                        TextColor="White"
+                                        Clicked="OnEditPedidoClicked" />
+                                <Button Text="Eliminar"
+                                        BackgroundColor="#d32f2f"
+                                        TextColor="White"
+                                        Clicked="OnDeletePedidoClicked" />
+                            </StackLayout>
+                        </StackLayout>
+                    </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
