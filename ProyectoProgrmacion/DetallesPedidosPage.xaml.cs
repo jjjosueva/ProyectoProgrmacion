@@ -2,13 +2,13 @@
 {
     public partial class DetallesPedidosPage : ContentPage
     {
-        private List<Pedido> pedidosList = new List<Pedido>();
+        private List<Pedido> pedidosList = new List<Pedido>(); // Lista para almacenar los pedidos
         private Pedido pedidoSeleccionado;
 
         public DetallesPedidosPage()
         {
             InitializeComponent();
-            PedidosListView.ItemsSource = pedidosList;
+            PedidosListView.ItemsSource = pedidosList;  // Vinculamos la lista al ListView
         }
 
         // Método para agregar un pedido
@@ -16,21 +16,33 @@
         {
             string pedidoPersonalizado = PedidoPersonalizadoEntry.Text;
             string pedidoPredefinido = PedidosPicker.SelectedItem?.ToString();
+            string nombreCliente = NombreClienteEntry.Text;
+            string fechaEntrega = FechaEntregaDatePicker.Date.ToString("yyyy-MM-dd");
+            string detallesPieza = DetallesPiezaEntry.Text;
 
             if (!string.IsNullOrEmpty(pedidoPersonalizado) || !string.IsNullOrEmpty(pedidoPredefinido))
             {
                 var nuevoPedido = new Pedido
                 {
                     PedidoNombre = !string.IsNullOrEmpty(pedidoPersonalizado) ? pedidoPersonalizado : pedidoPredefinido,
-                    FechaPedido = DateTime.Now.ToString("yyyy-MM-dd")
+                    NombreCliente = nombreCliente,
+                    FechaEntrega = fechaEntrega,
+                    DetallesPieza = detallesPieza
                 };
 
+                // Agregar el nuevo pedido a la lista
                 pedidosList.Add(nuevoPedido);
+
+                // Actualizar el ListView
                 PedidosListView.ItemsSource = null;
                 PedidosListView.ItemsSource = pedidosList;
 
-                PedidoPersonalizadoEntry.Text = string.Empty; // Limpiar el campo
-                PedidosPicker.SelectedIndex = -1; // Resetear el Picker
+                // Limpiar los campos de entrada
+                PedidoPersonalizadoEntry.Text = string.Empty;
+                PedidosPicker.SelectedIndex = -1;
+                NombreClienteEntry.Text = string.Empty;
+                FechaEntregaDatePicker.Date = DateTime.Now;
+                DetallesPiezaEntry.Text = string.Empty;
             }
             else
             {
@@ -45,7 +57,11 @@
 
             if (pedidoSeleccionado != null)
             {
-                PedidoPersonalizadoEntry.Text = pedidoSeleccionado.PedidoNombre; // Rellenar el Entry con el pedido seleccionado
+                // Rellenar los campos con los detalles del pedido seleccionado
+                PedidoPersonalizadoEntry.Text = pedidoSeleccionado.PedidoNombre;
+                NombreClienteEntry.Text = pedidoSeleccionado.NombreCliente;
+                FechaEntregaDatePicker.Date = DateTime.Parse(pedidoSeleccionado.FechaEntrega);
+                DetallesPiezaEntry.Text = pedidoSeleccionado.DetallesPieza;
             }
         }
 
@@ -55,9 +71,11 @@
             if (pedidoSeleccionado != null)
             {
                 pedidoSeleccionado.PedidoNombre = PedidoPersonalizadoEntry.Text;
-                pedidoSeleccionado.FechaPedido = DateTime.Now.ToString("yyyy-MM-dd"); // Se actualiza la fecha al editar
+                pedidoSeleccionado.NombreCliente = NombreClienteEntry.Text;
+                pedidoSeleccionado.FechaEntrega = FechaEntregaDatePicker.Date.ToString("yyyy-MM-dd");
+                pedidoSeleccionado.DetallesPieza = DetallesPiezaEntry.Text;
 
-                // Actualizamos la lista
+                // Actualizamos el ListView
                 PedidosListView.ItemsSource = null;
                 PedidosListView.ItemsSource = pedidosList;
 
