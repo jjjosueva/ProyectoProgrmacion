@@ -3,24 +3,58 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProyectoProgrmacion.PiezasPage"
              BackgroundColor="#e0f2f1">
-    <VerticalStackLayout Padding="20">
-        <Label Text="Piezas Disponibles"
-               FontSize="30"
-               FontAttributes="Bold"
-               HorizontalOptions="Center"
-               TextColor="#004d40"/>
+    <ScrollView>
+        <VerticalStackLayout Padding="20">
+            <!-- Título -->
+            <Label Text="Piezas Disponibles"
+                   FontSize="30"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   TextColor="#004d40"/>
 
-        <ListView x:Name="PiezasListView">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <TextCell Text="{Binding NombrePieza}" Detail="{Binding Precio}" />
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+            <!-- Campo de entrada para el nombre de la pieza -->
+            <Label Text="Nombre de la Pieza:"
+                   FontSize="18"
+                   TextColor="#004d40" />
+            <Entry x:Name="NombrePiezaEntry"
+                   Placeholder="Ingrese el nombre de la pieza"
+                   BackgroundColor="#ffffff" />
 
-        <Button Text="Ir a la siguiente página"
-                BackgroundColor="#004d40"
-                TextColor="White"
-                Clicked="OnNextPageClicked" />
-    </VerticalStackLayout>
+            <!-- Campo de entrada para el precio de la pieza -->
+            <Label Text="Precio:"
+                   FontSize="18"
+                   TextColor="#004d40" />
+            <Entry x:Name="PrecioPiezaEntry"
+                   Placeholder="Ingrese el precio de la pieza"
+                   Keyboard="Numeric"
+                   BackgroundColor="#ffffff" />
+
+            <!-- Botón para guardar la pieza -->
+            <Button Text="Guardar Pieza"
+                    BackgroundColor="#004d40"
+                    TextColor="White"
+                    Clicked="OnSavePiezaClicked" />
+
+            <!-- Botón para navegar a la siguiente página -->
+            <Button Text="Ir a la siguiente página"
+                    BackgroundColor="#00695c"
+                    TextColor="White"
+                    Clicked="OnNextPageClicked" />
+
+            <!-- Mostrar los detalles de la pieza guardada -->
+            <Label Text="Detalles de la Pieza Guardada"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   TextColor="#004d40"
+                   Margin="20,20,0,0"/>
+
+            <!-- Información guardada -->
+            <Label x:Name="NombrePiezaGuardadaLabel"
+                   FontSize="16"
+                   TextColor="#00796b" />
+            <Label x:Name="PrecioPiezaGuardadaLabel"
+                   FontSize="16"
+                   TextColor="#00796b" />
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
