@@ -6,8 +6,8 @@ namespace ProyectoProgrmacion
         {
             InitializeComponent();
 
-            // Establecer la página inicial
-            MainPage = new NavigationPage(new DetallesPedidosPage());
+            // Establecer la página de inicio como PaginaPrincipalPage
+            MainPage = new NavigationPage(new PaginaPrincipalPage());
         }
     }
 }
