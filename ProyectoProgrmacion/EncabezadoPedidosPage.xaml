@@ -3,26 +3,67 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProyectoProgrmacion.EncabezadoPedidosPage"
              BackgroundColor="#ffffff">
-    <VerticalStackLayout Padding="20">
-        <Label Text="Encabezado del Pedido"
-               FontSize="30"
-               FontAttributes="Bold"
-               HorizontalOptions="Center"
-               TextColor="#004d40"/>
+    <ScrollView>
+        <VerticalStackLayout Padding="20">
+            <!-- Título -->
+            <Label Text="Encabezado del Pedido"
+                   FontSize="30"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   TextColor="#004d40" />
 
-        <Entry x:Name="PedidoEntry" 
-               Placeholder="Ingrese el encabezado del pedido" 
-               Margin="0,20,0,0" 
-               BackgroundColor="#e0f2f1" />
+            <!-- Campo de entrada para el encabezado del pedido -->
+            <Label Text="Encabezado del Pedido:"
+                   FontSize="18"
+                   TextColor="#004d40" />
+            <Entry x:Name="PedidoEntry"
+                   Placeholder="Ingrese el encabezado del pedido"
+                   BackgroundColor="#e0f2f1" />
 
-        <Button Text="Guardar Pedido"
-                BackgroundColor="#004d40"
-                TextColor="White"
-                Clicked="OnSavePedidoClicked" />
+            <!-- Campo para seleccionar la fecha de entrega -->
+            <Label Text="Fecha de Entrega:"
+                   FontSize="18"
+                   TextColor="#004d40" />
+            <DatePicker x:Name="FechaEntregaDatePicker"
+                        BackgroundColor="#e0f2f1" />
 
-        <Button Text="Ir a la siguiente página"
-                BackgroundColor="#00695c"
-                TextColor="White"
-                Clicked="OnNextPageClicked" />
-    </VerticalStackLayout>
+            <!-- Campos adicionales -->
+            <Label Text="Detalles de la Pieza:"
+                   FontSize="18"
+                   TextColor="#004d40" />
+            <Entry x:Name="DetallesPiezaEntry"
+                   Placeholder="Ingrese los detalles de la pieza"
+                   BackgroundColor="#e0f2f1" />
+
+            <!-- Botón para guardar el pedido -->
+            <Button Text="Guardar Pedido"
+                    BackgroundColor="#004d40"
+                    TextColor="White"
+                    Clicked="OnSavePedidoClicked" />
+
+            <!-- Botón para navegar a la siguiente página -->
+            <Button Text="Ir a la siguiente página"
+                    BackgroundColor="#00695c"
+                    TextColor="White"
+                    Clicked="OnNextPageClicked" />
+
+            <!-- Mostrar los detalles del pedido guardado -->
+            <Label Text="Detalles del Pedido Guardado"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   TextColor="#004d40"
+                   Margin="20,20,0,0"/>
+
+            <!-- Información guardada -->
+            <Label x:Name="PedidoGuardadoLabel"
+                   FontSize="16"
+                   TextColor="#00796b" />
+            <Label x:Name="FechaEntregaGuardadaLabel"
+                   FontSize="16"
+                   TextColor="#00796b" />
+            <Label x:Name="DetallesPiezaGuardadaLabel"
+                   FontSize="16"
+                   TextColor="#00796b" />
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
