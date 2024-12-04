@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Shell
+    x:Class="ProyectoProgrmacion.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:ProyectoProgrmacion"
+    Title="Sistema de Gestión"
+    FlyoutHeaderBehavior="CollapseOnScroll">
+
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+
+        <Tab Title="Home" Icon="icon_pedido.png">
+            <ShellContent
+                Title="Bienvenidos"
+                ContentTemplate="{DataTemplate local:Home}" />
+        </Tab>
+
+        <Tab Title="Encabezado" Icon="icon_pedido.png">
+            <ShellContent
+                Title="Encabezados de Pedidos"
+                ContentTemplate="{DataTemplate local:EncabezadoPedidosPage}" />
+        </Tab>
+
+        <Tab Title="Detalles" Icon="icon_pedido.png">
+            <ShellContent
+                Title="Detalles de Pedidos"
+                ContentTemplate="{DataTemplate local:DetallesPedidosPage}" />
+        </Tab>
+
+        <Tab Title="Piezas" Icon="icon_pedido.png">
+            <ShellContent
+                Title="Piezas"
+                ContentTemplate="{DataTemplate local:PiezasPage}" />
+        </Tab>
+
+        <Tab Title="Pagos" Icon="icon_pago.png">
+            <ShellContent
+                Title="Pagos"
+                ContentTemplate="{DataTemplate local:SistemaPagoPage}" />
+        </Tab>
+
+    </FlyoutItem>
+
+</Shell>

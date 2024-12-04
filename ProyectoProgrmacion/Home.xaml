@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProyectoProgrmacion.Home"
+             Title="Car Parts"
+             BackgroundColor="#e0f2f1">
+    <ScrollView>
+        <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Spacing="20">
+
+            <Label Text="Bienvenido a Car Parts"
+           FontSize="32"
+           FontAttributes="Bold"
+           HorizontalTextAlignment="Center"
+           TextColor="#004d40" 
+           Margin="20"/>
+
+            <Image Source="imagen_de_bienvenida.png" 
+           HorizontalOptions="Center"
+           VerticalOptions="CenterAndExpand"
+           Aspect="AspectFill"
+           WidthRequest="250"
+           HeightRequest="250"
+           Margin="20"/>
+
+            <Label Text="Explora todas las funcionalidades de la app y gestiona tus pedidos y pagos de manera sencilla."
+           FontSize="18"
+           HorizontalTextAlignment="Center"
+           TextColor="#00796b"
+           Margin="20"/>
+
+        </StackLayout>
+        
+    </ScrollView>
+    
+
+</ContentPage>

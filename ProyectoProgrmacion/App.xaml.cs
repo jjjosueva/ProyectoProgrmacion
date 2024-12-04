@@ -7,7 +7,7 @@ namespace ProyectoProgrmacion
             InitializeComponent();
 
             // Establecer la página de inicio como PaginaPrincipalPage
-            MainPage = new NavigationPage(new PaginaPrincipalPage());
+            MainPage = new NavigationPage(new AppShell());
         }
     }
 }
