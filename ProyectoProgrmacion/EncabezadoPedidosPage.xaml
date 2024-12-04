@@ -2,68 +2,92 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProyectoProgrmacion.EncabezadoPedidosPage"
-             BackgroundColor="#ffffff">
+             BackgroundColor="#e0f2f1">
     <ScrollView>
         <VerticalStackLayout Padding="20">
-            <!-- Título -->
             <Label Text="Encabezado del Pedido"
                    FontSize="30"
                    FontAttributes="Bold"
                    HorizontalOptions="Center"
                    TextColor="#004d40" />
 
-            <!-- Campo de entrada para el encabezado del pedido -->
             <Label Text="Encabezado del Pedido:"
                    FontSize="18"
                    TextColor="#004d40" />
             <Entry x:Name="PedidoEntry"
                    Placeholder="Ingrese el encabezado del pedido"
-                   BackgroundColor="#e0f2f1" />
+                   BackgroundColor="Black" />
 
-            <!-- Campo para seleccionar la fecha de entrega -->
             <Label Text="Fecha de Entrega:"
                    FontSize="18"
                    TextColor="#004d40" />
             <DatePicker x:Name="FechaEntregaDatePicker"
-                        BackgroundColor="#e0f2f1" />
+                        BackgroundColor="Black" />
 
-            <!-- Campos adicionales -->
             <Label Text="Detalles de la Pieza:"
                    FontSize="18"
                    TextColor="#004d40" />
             <Entry x:Name="DetallesPiezaEntry"
                    Placeholder="Ingrese los detalles de la pieza"
-                   BackgroundColor="#e0f2f1" />
+                   BackgroundColor="Black" />
 
-            <!-- Botón para guardar el pedido -->
-            <Button Text="Guardar Pedido"
-                    BackgroundColor="#004d40"
-                    TextColor="White"
-                    Clicked="OnSavePedidoClicked" />
-
-            <!-- Botón para navegar a la siguiente página -->
-            <Button Text="Ir a la siguiente página"
-                    BackgroundColor="#00695c"
-                    TextColor="White"
-                    Clicked="OnNextPageClicked" />
-
-            <!-- Mostrar los detalles del pedido guardado -->
-            <Label Text="Detalles del Pedido Guardado"
+            <Label Text="Pedidos Guardados"
                    FontSize="18"
                    FontAttributes="Bold"
                    TextColor="#004d40"
                    Margin="20,20,0,0"/>
 
-            <!-- Información guardada -->
-            <Label x:Name="PedidoGuardadoLabel"
-                   FontSize="16"
-                   TextColor="#00796b" />
-            <Label x:Name="FechaEntregaGuardadaLabel"
-                   FontSize="16"
-                   TextColor="#00796b" />
-            <Label x:Name="DetallesPiezaGuardadaLabel"
-                   FontSize="16"
-                   TextColor="#00796b" />
+            <ListView x:Name="PedidosListView" 
+                      ItemTapped="OnPedidoTapped"
+                      Margin="0,10"
+                      ItemsSource="{Binding Pedidos}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Label Text="Pedido personalizado:"
+                                       FontSize="18" 
+                                       TextColor="#004d40"/>
+                                <Label Text="{Binding PedidoNombre}" 
+                                       FontSize="18" 
+                                       TextColor="#004d40"/>
+                                <Label Text="Fecha de entrega:"
+                                       FontSize="14" 
+                                       TextColor="#00796b"/>
+                                <Label Text="{Binding FechaEntrega}" 
+                                       FontSize="14" 
+                                       TextColor="#00796b"/>    
+                                <Label Text="Detalles de la pieza:"
+                                       FontSize="14" 
+                                       TextColor="#00796b"/>
+                                <Label Text="{Binding DetallesPieza}" 
+                                       FontSize="14" 
+                                       TextColor="#00796b"/>
+                                <StackLayout Orientation="Horizontal">
+                                    <Button Text="Editar"
+                                            BackgroundColor="#004d40"
+                                            TextColor="White"
+                                            Clicked="OnEditPedidoClicked" />
+                                    <Button Text="Eliminar"
+                                            BackgroundColor="#d32f2f"
+                                            TextColor="White"
+                                            Clicked="OnDeletePedidoClicked" />
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            
+            <Button Text="Guardar Pedido"
+                    BackgroundColor="#004d40"
+                    TextColor="White"
+                    Clicked="OnSavePedidoClicked" />
+            
+            <Button Text="Siguiente"
+                    BackgroundColor="#00796b"
+                    TextColor="White"
+                    Clicked="OnNextPageClicked"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
