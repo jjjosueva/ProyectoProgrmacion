@@ -1,10 +1,21 @@
-﻿
-public class Pedido
-{
-    public string PedidoNombre { get; set; }  // Pedido Personalizado o Predefinido
-    public string NombreCliente { get; set; }  // Nombre del Cliente
-    public string FechaEntrega { get; set; }   // Fecha de entrega
-    public string DetallesPieza { get; set; }  // Detalles de la pieza
+﻿using System;
+using System.Xml.Serialization;
 
-   
+namespace ProyectoProgrmacion
+{
+    [XmlRoot("Pedidos")]
+    public class Pedido
+    {
+        [XmlElement("PedidoNombre")]
+        public string PedidoNombre { get; set; }
+
+        [XmlElement("NombreCliente")]
+        public string NombreCliente { get; set; }
+
+        [XmlElement("FechaEntrega")]
+        public string FechaEntrega { get; set; }
+
+        [XmlElement("DetallesPieza")]
+        public string DetallesPieza { get; set; }
+    }
 }

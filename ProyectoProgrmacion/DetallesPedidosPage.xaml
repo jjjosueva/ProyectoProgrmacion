@@ -1,7 +1,7 @@
 ﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProyectoProgrmacion.DetallesPedidosPage"
-             BackgroundColor="#f0f0f0">
+             BackgroundColor="#e0f2f1">
     <ScrollView>
         <VerticalStackLayout Padding="20">
             <!-- Título -->
@@ -14,50 +14,50 @@
             <!-- Pedido Personalizado -->
             <Label Text="Pedido Personalizado" 
                    FontSize="20" 
-                   TextColor="#00695c" 
+                   TextColor="#004d40" 
                    Margin="0,10,0,5"/>
             <Entry x:Name="PedidoPersonalizadoEntry"
                    Placeholder="Escribe los detalles de tu pedido"
-                   BackgroundColor="#e0f2f1"
+                   BackgroundColor="Black"
                    Margin="0,0,0,20" />
 
             <!-- Nombre del Cliente -->
             <Label Text="Nombre del Cliente" 
                    FontSize="20" 
-                   TextColor="#00695c" 
+                   TextColor="#004d40" 
                    Margin="0,10,0,5"/>
             <Entry x:Name="NombreClienteEntry"
                    Placeholder="Escribe el nombre del cliente"
-                   BackgroundColor="#e0f2f1"
+                   BackgroundColor="Black"
                    Margin="0,0,0,20" />
 
             <!-- Fecha de Entrega con DatePicker -->
             <Label Text="Fecha de Entrega" 
                    FontSize="20" 
-                   TextColor="#00695c" 
+                   TextColor="#004d40" 
                    Margin="0,10,0,5"/>
             <DatePicker x:Name="FechaEntregaDatePicker"
-                        BackgroundColor="#e0f2f1"
+                        BackgroundColor="Black"
                         Margin="0,0,0,20" />
 
             <!-- Detalles de la Pieza -->
             <Label Text="Detalles de la Pieza" 
                    FontSize="20" 
-                   TextColor="#00695c" 
+                   TextColor="#004d40" 
                    Margin="0,10,0,5"/>
             <Entry x:Name="DetallesPiezaEntry"
                    Placeholder="Escribe detalles de la pieza"
-                   BackgroundColor="#e0f2f1"
+                   BackgroundColor="Black"
                    Margin="0,0,0,20" />
 
-            <!-- Lista de Pedidos Predefinidos -->
-            <Label Text="Selecciona un Pedido Predefinido" 
+            <!-- Lista de Pedidos -->
+            <Label Text="Selecciona un Pedido " 
                    FontSize="20" 
-                   TextColor="#00695c" 
+                   TextColor="#004d40" 
                    Margin="0,10,0,5"/>
             <Picker x:Name="PedidosPicker"
-                    Title="Selecciona un Pedido"
-                    SelectedIndexChanged="OnPedidoPredefinidoSelected">
+                    SelectedIndexChanged="OnPedidoPredefinidoSelected"
+                    BackgroundColor="Black">
                 <Picker.Items>
                     <x:String>Pedido Predefinido 1</x:String>
                     <x:String>Pedido Predefinido 2</x:String>
