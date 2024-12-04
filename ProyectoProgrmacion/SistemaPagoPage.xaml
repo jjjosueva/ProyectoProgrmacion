@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProyectoProgrmacion.SistemaPagoPage"
-             BackgroundColor="#ffffff">
+             BackgroundColor="#e0f2f1">
+
     <ScrollView>
         <VerticalStackLayout Padding="20">
             <!-- Título -->
@@ -10,67 +10,93 @@
                    FontSize="30"
                    FontAttributes="Bold"
                    HorizontalOptions="Center"
-                   TextColor="#004d40"/>
+                   TextColor="#004d40" />
 
-            <!-- Campo de entrada para la cantidad a pagar -->
-            <Label Text="Ingrese la cantidad a pagar:"
+            <!-- Campo de cantidad -->
+            <Label Text="Cantidad a pagar:"
                    FontSize="18"
                    TextColor="#004d40" />
             <Entry x:Name="PagoEntry"
-                   Placeholder="Ingrese cantidad a pagar"
-                   Keyboard="Numeric"
-                   BackgroundColor="#ffffff" />
+                   Placeholder="Ingrese la cantidad"
+                   BackgroundColor="Black" />
 
-            <!-- Selector de Fecha -->
-            <Label Text="Seleccione la fecha de pago:"
-                   FontSize="18"
-                   TextColor="#004d40" />
-            <DatePicker x:Name="FechaPagoPicker"
-                        Date="{Binding FechaPago}"
-                        BackgroundColor="#ffffff" />
-
-            <!-- Método de pago -->
-            <Label Text="Seleccione el método de pago:"
+            <!-- Picker para seleccionar el método de pago -->
+            <Label Text="Método de Pago:"
                    FontSize="18"
                    TextColor="#004d40" />
             <Picker x:Name="MetodoPagoPicker"
                     SelectedIndexChanged="OnMetodoPagoSelected"
-                    BackgroundColor="#ffffff">
+                    BackgroundColor="Black">
                 <Picker.Items>
                     <x:String>Tarjeta de Crédito</x:String>
-                    <x:String>Tarjeta de Débito</x:String>
-                    <x:String>PayPal</x:String>
+                    <x:String>Transferencia Bancaria</x:String>
+                    <x:String>Pago en Efectivo</x:String>
                 </Picker.Items>
             </Picker>
 
-            <!-- Botón para realizar el pago -->
+            <!-- Picker para seleccionar la fecha -->
+            <Label Text="Fecha de Pago:"
+                   FontSize="18"
+                   TextColor="#004d40" />
+            <DatePicker x:Name="FechaPagoPicker"
+                        BackgroundColor="Black" />
+
+            <!-- Botón de pago -->
             <Button Text="Realizar Pago"
                     BackgroundColor="#004d40"
                     TextColor="White"
                     Clicked="OnPagoClicked" />
 
-            <!-- Detalles del pago -->
-            <Label Text="Detalles del Pago Realizado"
+            <!-- Mostrar los pagos guardados -->
+            <Label Text="Pagos Realizados"
                    FontSize="18"
                    FontAttributes="Bold"
                    TextColor="#004d40"
                    Margin="20,20,0,0"/>
 
-            <!-- Información de pago -->
-            <Label x:Name="PagoCantidadLabel"
-                   FontSize="16"
-                   TextColor="#00796b"
-                   Margin="20,5,0,0"/>
+            <!-- ListView para mostrar los pagos -->
+            <ListView x:Name="PagosListView"
+                      ItemsSource="{Binding Pagos}"
+                      ItemTapped="OnPagoTapped"
+                      Margin="0,10">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Label Text="Cantidad a pagar:"
+                                       FontSize="18"
+                                       TextColor="#004d40"/>
+                                <Label Text="{Binding Cantidad}"
+                                       FontSize="18"
+                                       TextColor="#004d40"/>
+                                <Label Text="Método de pago:"
+                                        FontSize="14"
+                                        TextColor="#00796b"/>
+                                <Label Text="{Binding MetodoPago}"
+                                       FontSize="14"
+                                       TextColor="#00796b"/>
+                                <Label Text="Fecha de pago:"
+                                       FontSize="14"
+                                       TextColor="#00796b"/>
+                                <Label Text="{Binding FechaPago, StringFormat='{0:yyyy-MM-dd'}"
+                                       FontSize="14"
+                                       TextColor="#00796b"/>
+                                <StackLayout Orientation="Horizontal">
+                                    <Button Text="Editar"
+                                            BackgroundColor="#004d40"
+                                            TextColor="White"
+                                            Clicked="OnEditPagoClicked" />
+                                    <Button Text="Eliminar"
+                                            BackgroundColor="#d32f2f"
+                                            TextColor="White"
+                                            Clicked="OnDeletePagoClicked" />
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
 
-            <Label x:Name="PagoFechaLabel"
-                   FontSize="16"
-                   TextColor="#00796b"
-                   Margin="20,5,0,0"/>
-
-            <Label x:Name="MetodoPagoLabel"
-                   FontSize="16"
-                   TextColor="#00796b"
-                   Margin="20,5,0,0"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
