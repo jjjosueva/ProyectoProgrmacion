@@ -1,126 +1,116 @@
-﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ProyectoProgrmacion.DetallesPedidosPage"
+             x:Class="ProyectoProgrmacion.Views.DetallesPedidosPage"
              BackgroundColor="#e0f2f1">
+
+    <!-- El BindingContext se establecerá en el code-behind -->
+
     <ScrollView>
         <VerticalStackLayout Padding="20">
-            <!-- Título -->
             <Label Text="Detalles del Pedido"
                    FontSize="30"
                    FontAttributes="Bold"
-                   HorizontalOptions="Center" 
-                   TextColor="#004d40"/>
+                   HorizontalOptions="Center"
+                   TextColor="#004d40" />
 
-            <!-- Pedido Personalizado -->
+            <!-- Campos de Entrada -->
             <Label Text="Pedido Personalizado" 
                    FontSize="20" 
                    TextColor="#004d40" 
                    Margin="0,10,0,5"/>
-            <Entry x:Name="PedidoPersonalizadoEntry"
-                   Placeholder="Escribe los detalles de tu pedido"
+            <Entry Placeholder="Escribe los detalles de tu pedido"
                    BackgroundColor="Black"
-                   Margin="0,0,0,20" />
+                   Text="{Binding NuevoPedido.PedidoNombre, Mode=TwoWay}"
+                   TextColor="White"
+                   Margin="0,0,0,10" />
 
-            <!-- Nombre del Cliente -->
             <Label Text="Nombre del Cliente" 
                    FontSize="20" 
                    TextColor="#004d40" 
                    Margin="0,10,0,5"/>
-            <Entry x:Name="NombreClienteEntry"
-                   Placeholder="Escribe el nombre del cliente"
+            <Entry Placeholder="Escribe el nombre del cliente"
                    BackgroundColor="Black"
-                   Margin="0,0,0,20" />
+                   Text="{Binding NuevoPedido.NombreCliente, Mode=TwoWay}"
+                   TextColor="White"
+                   Margin="0,0,0,10" />
 
-            <!-- Fecha de Entrega con DatePicker -->
             <Label Text="Fecha de Entrega" 
                    FontSize="20" 
                    TextColor="#004d40" 
                    Margin="0,10,0,5"/>
-            <DatePicker x:Name="FechaEntregaDatePicker"
+            <DatePicker Date="{Binding NuevoPedido.FechaEntrega, Mode=TwoWay}"
                         BackgroundColor="Black"
-                        Margin="0,0,0,20" />
+                        Margin="0,0,0,10" />
 
-            <!-- Detalles de la Pieza -->
             <Label Text="Detalles de la Pieza" 
                    FontSize="20" 
                    TextColor="#004d40" 
                    Margin="0,10,0,5"/>
-            <Entry x:Name="DetallesPiezaEntry"
-                   Placeholder="Escribe detalles de la pieza"
+            <Entry Placeholder="Escribe detalles de la pieza"
                    BackgroundColor="Black"
-                   Margin="0,0,0,20" />
+                   Text="{Binding NuevoPedido.DetallesPieza, Mode=TwoWay}"
+                   TextColor="White"
+                   Margin="0,0,0,10" />
 
-            <!-- Lista de Pedidos -->
-            <Label Text="Selecciona un Pedido " 
-                   FontSize="20" 
-                   TextColor="#004d40" 
-                   Margin="0,10,0,5"/>
-            <Picker x:Name="PedidosPicker"
-                    SelectedIndexChanged="OnPedidoPredefinidoSelected"
-                    BackgroundColor="Black">
-                <Picker.Items>
-                    <x:String>Pedido Predefinido 1</x:String>
-                    <x:String>Pedido Predefinido 2</x:String>
-                    <x:String>Pedido Predefinido 3</x:String>
-                </Picker.Items>
-            </Picker>
-
-            <!-- ListView para mostrar los pedidos -->
-            <ListView x:Name="PedidosListView" ItemTapped="OnPedidoTapped">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <StackLayout>
-                                <Label Text="Pedido personalizado:"
-                                       FontSize="18" 
-                                       TextColor="#004d40"/>
-                                <Label Text="{Binding PedidoNombre}" 
-                                       FontSize="18" 
-                                       TextColor="#004d40"/>
-                                <Label Text="Nombre del cliente:"
-                                       FontSize="14" 
-                                       TextColor="#00796b"/>
-                                <Label Text="{Binding NombreCliente}" 
-                                       FontSize="14" 
-                                       TextColor="#00796b"/>
-                                <Label Text="Fecha de entrega:"
-                                       FontSize="14" 
-                                       TextColor="#00796b"/>
-                                <Label Text="{Binding FechaEntrega}" 
-                                       FontSize="14" 
-                                       TextColor="#00796b"/>
-                                <Label Text="Detalles de la pieza:"
-                                       FontSize="14" 
-                                       TextColor="#00796b"/>
-                                <Label Text="{Binding DetallesPieza}" 
-                                       FontSize="14" 
-                                       TextColor="#00796b"/>
-                                <StackLayout Orientation="Horizontal">
-                                    <Button Text="Editar"
-                                            BackgroundColor="#004d40"
-                                            TextColor="White"
-                                            Clicked="OnEditPedidoClicked" />
-                                    <Button Text="Eliminar"
-                                            BackgroundColor="#d32f2f"
-                                            TextColor="White"
-                                            Clicked="OnDeletePedidoClicked" />
-                                </StackLayout>
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-
-            <!-- Botones -->
+            <!-- Botón para Agregar el Pedido -->
             <Button Text="Agregar Pedido"
                     BackgroundColor="#004d40"
                     TextColor="White"
-                    Clicked="OnAddPedidoClicked" />
+                    Command="{Binding AgregarPedidoCommand}"
+                    Margin="0,0,0,20" />
 
+            <!-- CollectionView para Mostrar los Pedidos -->
+            <Label Text="Pedidos Guardados"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   TextColor="#004d40"
+                   Margin="0,20,0,10"/>
+
+            <CollectionView ItemsSource="{Binding PedidosList}"
+                            SelectionMode="Single"
+                            SelectedItem="{Binding PedidoSeleccionado}"
+                            Margin="0,0,0,20">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="#00796b" CornerRadius="10" Padding="10" Margin="5">
+                            <StackLayout>
+                                <Label Text="{Binding PedidoNombre}" 
+                                       FontAttributes="Bold" 
+                                       FontSize="18" 
+                                       TextColor="#004d40" />
+                                <Label Text="{Binding NombreCliente}" 
+                                       FontSize="14" 
+                                       TextColor="#00796b" />
+                                <Label Text="{Binding FechaEntrega, StringFormat='Fecha de Entrega: {0:yyyy-MM-dd}'}" 
+                                       FontSize="14" 
+                                       TextColor="#00796b" />
+                                <Label Text="{Binding DetallesPieza}" 
+                                       FontSize="14" 
+                                       TextColor="#00796b" />
+                                <StackLayout Orientation="Horizontal" Spacing="10">
+                                    <Button Text="Editar"
+                                            BackgroundColor="#004d40"
+                                            TextColor="White"
+                                            Command="{Binding BindingContext.EditarPedidoCommand, Source={x:Reference Self}}"
+                                            CommandParameter="{Binding .}" />
+                                    <Button Text="Eliminar"
+                                            BackgroundColor="#d32f2f"
+                                            TextColor="White"
+                                            Command="{Binding BindingContext.EliminarPedidoCommand, Source={x:Reference Self}}"
+                                            CommandParameter="{Binding .}" />
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- Botón para Navegar a la Siguiente Página -->
             <Button Text="Ir a la siguiente página"
                     BackgroundColor="#00695c"
                     TextColor="White"
-                    Clicked="OnNextPageClicked" />
+                    Command="{Binding NavegarSiguienteCommand}" />
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

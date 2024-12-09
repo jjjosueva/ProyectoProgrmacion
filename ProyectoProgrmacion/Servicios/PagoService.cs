@@ -1,33 +1,33 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿// ProyectoProgrmacion/Services/PagoService.cs
 using Newtonsoft.Json;
 using ProyectoProgrmacion.Models;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
+using Microsoft.Maui.Storage;
 
-namespace ProyectoProgrmacion.Servicios
+namespace ProyectoProgrmacion.Services
 {
     public class PagoService
     {
-        private static string ObtenerRutaArchivo()
-        {
-            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "pagos.json");
-        }
+        private readonly string archivoPagos = Path.Combine(FileSystem.AppDataDirectory, "pagos.json");
 
-        public static void GuardarPagos(List<Pago> pagos)
+        // Cargar pagos desde el archivo JSON
+        public async Task<List<Pago>> CargarPagosAsync()
         {
-            string archivo = ObtenerRutaArchivo();
-            string pagosJson = JsonConvert.SerializeObject(pagos);
-            File.WriteAllText(archivo, pagosJson);
-        }
-
-        public static List<Pago> CargarPagos()
-        {
-            string archivo = ObtenerRutaArchivo();
-            if (File.Exists(archivo))
+            if (File.Exists(archivoPagos))
             {
-                string pagosJson = File.ReadAllText(archivo);
-                return JsonConvert.DeserializeObject<List<Pago>>(pagosJson);
+                var json = await File.ReadAllTextAsync(archivoPagos);
+                return JsonConvert.DeserializeObject<List<Pago>>(json) ?? new List<Pago>();
             }
             return new List<Pago>();
+        }
+
+        // Guardar pagos en el archivo JSON
+        public async Task GuardarPagosAsync(List<Pago> pagos)
+        {
+            var json = JsonConvert.SerializeObject(pagos, Formatting.Indented);
+            await File.WriteAllTextAsync(archivoPagos, json);
         }
     }
 }

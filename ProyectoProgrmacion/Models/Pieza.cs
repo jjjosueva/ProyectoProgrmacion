@@ -1,9 +1,11 @@
-﻿namespace ProyectoProgrmacion
+﻿// ProyectoProgrmacion/Models/Pieza.cs
+namespace ProyectoProgrmacion.Models
 {
     public class Pieza
     {
-        public string NombrePieza { get; set; }
-        public string Precio { get; set; }
-        public bool IsSelected { get; internal set; }
+        public string Nombre { get; set; }
+        public string Descripcion { get; set; }
+        public decimal Precio { get; set; }
+        public string ImagenURL { get; set; }
     }
 }

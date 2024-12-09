@@ -1,3 +1,6 @@
+// ProyectoProgrmacion/App.xaml.cs
+using Microsoft.Maui.Controls;
+
 namespace ProyectoProgrmacion
 {
     public partial class App : Application
@@ -6,8 +9,8 @@ namespace ProyectoProgrmacion
         {
             InitializeComponent();
 
-            // Establecer la página de inicio como PaginaPrincipalPage
-            MainPage = new NavigationPage(new AppShell());
+            // Establecer el MainPage como AppShell
+            MainPage = new AppShell();
         }
     }
 }

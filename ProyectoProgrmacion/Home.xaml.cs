@@ -1,13 +1,15 @@
+// ProyectoProgrmacion/Views/Home.xaml.cs
 using Microsoft.Maui.Controls;
+using ProyectoProgrmacion.ViewModels;
 
-namespace ProyectoProgrmacion
+namespace ProyectoProgrmacion.Views
 {
     public partial class Home : ContentPage
     {
-        public Home()
+        public Home(HomeViewModel viewModel)
         {
             InitializeComponent();
+            BindingContext = viewModel;
         }
-
     }
 }

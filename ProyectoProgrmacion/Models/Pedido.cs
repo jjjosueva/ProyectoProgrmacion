@@ -1,17 +1,11 @@
-﻿using System;
-using System.Xml.Serialization;
-
-namespace ProyectoProgrmacion
+﻿// ProyectoProgrmacion/Models/Pedido.cs
+namespace ProyectoProgrmacion.Models
 {
-    [XmlRoot("Pedidos")]
     public class Pedido
     {
         public string PedidoNombre { get; set; }
-
         public string NombreCliente { get; set; }
-
-        public string FechaEntrega { get; set; }
-
+        public DateTime FechaEntrega { get; set; }
         public string DetallesPieza { get; set; }
     }
 }

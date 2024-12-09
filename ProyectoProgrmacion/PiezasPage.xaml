@@ -1,60 +1,113 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ProyectoProgrmacion.PiezasPage"
-             BackgroundColor="#e0f2f1">
+             x:Class="ProyectoProgrmacion.Views.PiezasPage"
+             BackgroundColor="#f1f8e9">
+
     <ScrollView>
         <VerticalStackLayout Padding="20">
-            <!-- Título -->
-            <Label Text="Piezas Disponibles"
+            <Label Text="Gestión de Piezas"
                    FontSize="30"
                    FontAttributes="Bold"
                    HorizontalOptions="Center"
-                   TextColor="#004d40"/>
+                   TextColor="#33691e" />
 
-            <!-- Campo de entrada para el nombre de la pieza -->
-            <Label Text="Nombre de la Pieza:"
-                   FontSize="18"
-                   TextColor="#004d40" />
-            <Entry x:Name="NombrePiezaEntry"
-                   Placeholder="Ingrese el nombre de la pieza"
-                   BackgroundColor="#ffffff" />
+            <!-- Campos de Entrada -->
+            <Label Text="Nombre de la Pieza" 
+                   FontSize="20" 
+                   TextColor="#33691e" 
+                   Margin="0,10,0,5"/>
+            <Entry Placeholder="Escribe el nombre de la pieza"
+                   BackgroundColor="Black"
+                   Text="{Binding NuevaPieza.Nombre, Mode=TwoWay}"
+                   TextColor="White"
+                   Margin="0,0,0,10" />
 
-            <!-- Campo de entrada para el precio de la pieza -->
-            <Label Text="Precio:"
-                   FontSize="18"
-                   TextColor="#004d40" />
-            <Entry x:Name="PrecioPiezaEntry"
-                   Placeholder="Ingrese el precio de la pieza"
+            <Label Text="Descripción" 
+                   FontSize="20" 
+                   TextColor="#33691e" 
+                   Margin="0,10,0,5"/>
+            <Editor Placeholder="Escribe la descripción de la pieza"
+                    BackgroundColor="Black"
+                    Text="{Binding NuevaPieza.Descripcion, Mode=TwoWay}"
+                    TextColor="White"
+                    HeightRequest="100"
+                    Margin="0,0,0,10" />
+
+            <Label Text="Precio" 
+                   FontSize="20" 
+                   TextColor="#33691e" 
+                   Margin="0,10,0,5"/>
+            <Entry Placeholder="Escribe el precio de la pieza"
+                   BackgroundColor="Black"
                    Keyboard="Numeric"
-                   BackgroundColor="#ffffff" />
+                   Text="{Binding NuevaPieza.Precio, Mode=TwoWay}"
+                   TextColor="White"
+                   Margin="0,0,0,10" />
 
-            <!-- Botón para guardar la pieza -->
-            <Button Text="Guardar Pieza"
-                    BackgroundColor="#004d40"
+            <Label Text="Imagen URL" 
+                   FontSize="20" 
+                   TextColor="#33691e" 
+                   Margin="0,10,0,5"/>
+            <Entry Placeholder="Ingresa la URL de la imagen"
+                   BackgroundColor="Black"
+                   Text="{Binding NuevaPieza.ImagenURL, Mode=TwoWay}"
+                   TextColor="White"
+                   Margin="0,0,0,10" />
+
+            <!-- Botón para Agregar la Pieza -->
+            <Button Text="Agregar Pieza"
+                    BackgroundColor="#33691e"
                     TextColor="White"
-                    Clicked="OnSavePiezaClicked" />
+                    Command="{Binding AgregarPiezaCommand}"
+                    Margin="0,0,0,20" />
 
-            <!-- Botón para navegar a la siguiente página -->
-            <Button Text="Ir a la siguiente página"
-                    BackgroundColor="#00695c"
-                    TextColor="White"
-                    Clicked="OnNextPageClicked" />
-
-            <!-- Mostrar los detalles de la pieza guardada -->
-            <Label Text="Detalles de la Pieza Guardada"
+            <!-- CollectionView para Mostrar las Piezas -->
+            <Label Text="Piezas Guardadas"
                    FontSize="18"
                    FontAttributes="Bold"
-                   TextColor="#004d40"
-                   Margin="20,20,0,0"/>
+                   TextColor="#33691e"
+                   Margin="0,20,0,10"/>
 
-            <!-- Información guardada -->
-            <Label x:Name="NombrePiezaGuardadaLabel"
-                   FontSize="16"
-                   TextColor="#00796b" />
-            <Label x:Name="PrecioPiezaGuardadaLabel"
-                   FontSize="16"
-                   TextColor="#00796b" />
+            <CollectionView ItemsSource="{Binding PiezasList}"
+                            SelectionMode="Single"
+                            SelectedItem="{Binding PiezaSeleccionada}"
+                            Margin="0,0,0,20">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="#558b2f" CornerRadius="10" Padding="10" Margin="5">
+                            <StackLayout>
+                                <Label Text="{Binding Nombre}" 
+                                       FontAttributes="Bold" 
+                                       FontSize="18" 
+                                       TextColor="#33691e" />
+                                <Label Text="{Binding Descripcion}" 
+                                       FontSize="14" 
+                                       TextColor="#558b2f" />
+                                <Label Text="{Binding Precio, StringFormat='Precio: {0:C}'}" 
+                                       FontSize="14" 
+                                       TextColor="#558b2f" />
+                                <Image Source="{Binding ImagenURL}" 
+                                       HeightRequest="100" 
+                                       Aspect="AspectFill"
+                                       Margin="0,5,0,5"/>
+                                <StackLayout Orientation="Horizontal" Spacing="10">
+                                    <Button Text="Editar"
+                                            BackgroundColor="#33691e"
+                                            TextColor="White"
+                                            Command="{Binding BindingContext.EditarPiezaCommand, Source={x:Reference Self}}"
+                                            CommandParameter="{Binding .}" />
+                                    <Button Text="Eliminar"
+                                            BackgroundColor="#d32f2f"
+                                            TextColor="White"
+                                            Command="{Binding BindingContext.EliminarPiezaCommand, Source={x:Reference Self}}"
+                                            CommandParameter="{Binding .}" />
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

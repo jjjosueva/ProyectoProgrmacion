@@ -1,102 +1,104 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ProyectoProgrmacion.SistemaPagoPage"
-             BackgroundColor="#e0f2f1">
+             x:Class="ProyectoProgrmacion.Views.SistemaPagoPage"
+             BackgroundColor="#fff3e0">
 
     <ScrollView>
         <VerticalStackLayout Padding="20">
-            <!-- Título -->
-            <Label Text="Sistema de Pago"
+            <Label Text="Sistema de Pagos"
                    FontSize="30"
                    FontAttributes="Bold"
                    HorizontalOptions="Center"
-                   TextColor="#004d40" />
+                   TextColor="#e65100" />
 
-            <!-- Campo de cantidad -->
-            <Label Text="Cantidad a pagar:"
-                   FontSize="18"
-                   TextColor="#004d40" />
-            <Entry x:Name="PagoEntry"
-                   Placeholder="Ingrese la cantidad"
-                   BackgroundColor="Black" />
+            <!-- Campos de Entrada -->
+            <Label Text="Cantidad a Pagar" 
+                   FontSize="20" 
+                   TextColor="#e65100" 
+                   Margin="0,10,0,5"/>
+            <Entry Placeholder="Ingrese la cantidad a pagar"
+                   BackgroundColor="Black"
+                   Keyboard="Numeric"
+                   Text="{Binding NuevoPago.Cantidad, Mode=TwoWay}"
+                   TextColor="White"
+                   Margin="0,0,0,10" />
 
-            <!-- Picker para seleccionar el método de pago -->
-            <Label Text="Método de Pago:"
-                   FontSize="18"
-                   TextColor="#004d40" />
-            <Picker x:Name="MetodoPagoPicker"
-                    SelectedIndexChanged="OnMetodoPagoSelected"
-                    BackgroundColor="Black">
-                <Picker.Items>
-                    <x:String>Tarjeta de Crédito</x:String>
-                    <x:String>Transferencia Bancaria</x:String>
-                    <x:String>Pago en Efectivo</x:String>
-                </Picker.Items>
+            <Label Text="Método de Pago" 
+                   FontSize="20" 
+                   TextColor="#e65100" 
+                   Margin="0,10,0,5"/>
+            <Picker Title="Seleccione el método de pago"
+                    SelectedItem="{Binding NuevoPago.MetodoPago, Mode=TwoWay}"
+                    BackgroundColor="Black"
+                    TextColor="White"
+                    Margin="0,0,0,10">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Tarjeta de Crédito</x:String>
+                        <x:String>Transferencia Bancaria</x:String>
+                        <x:String>Pago en Efectivo</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
             </Picker>
 
-            <!-- Picker para seleccionar la fecha -->
-            <Label Text="Fecha de Pago:"
-                   FontSize="18"
-                   TextColor="#004d40" />
-            <DatePicker x:Name="FechaPagoPicker"
-                        BackgroundColor="Black" />
+            <Label Text="Fecha de Pago" 
+                   FontSize="20" 
+                   TextColor="#e65100" 
+                   Margin="0,10,0,5"/>
+            <DatePicker Date="{Binding NuevoPago.FechaPago, Mode=TwoWay}"
+                        BackgroundColor="Black"
+                        Margin="0,0,0,10" />
 
-            <!-- Botón de pago -->
-            <Button Text="Realizar Pago"
-                    BackgroundColor="#004d40"
+            <!-- Botón para Agregar el Pago -->
+            <Button Text="Agregar Pago"
+                    BackgroundColor="#e65100"
                     TextColor="White"
-                    Clicked="OnPagoClicked" />
+                    Command="{Binding AgregarPagoCommand}"
+                    Margin="0,0,0,20" />
 
-            <!-- Mostrar los pagos guardados -->
+            <!-- CollectionView para Mostrar los Pagos -->
             <Label Text="Pagos Realizados"
                    FontSize="18"
                    FontAttributes="Bold"
-                   TextColor="#004d40"
-                   Margin="20,20,0,0"/>
+                   TextColor="#e65100"
+                   Margin="0,20,0,10"/>
 
-            <!-- ListView para mostrar los pagos -->
-            <ListView x:Name="PagosListView"
-                      ItemsSource="{Binding Pagos}"
-                      ItemTapped="OnPagoTapped"
-                      Margin="0,10">
-                <ListView.ItemTemplate>
+            <CollectionView ItemsSource="{Binding PagosList}"
+                            SelectionMode="Single"
+                            SelectedItem="{Binding PagoSeleccionado}"
+                            Margin="0,0,0,20">
+                <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>
+                        <Frame BorderColor="#ffb74d" CornerRadius="10" Padding="10" Margin="5">
                             <StackLayout>
-                                <Label Text="Cantidad a pagar:"
-                                       FontSize="18"
-                                       TextColor="#004d40"/>
-                                <Label Text="{Binding Cantidad}"
-                                       FontSize="18"
-                                       TextColor="#004d40"/>
-                                <Label Text="Método de pago:"
-                                        FontSize="14"
-                                        TextColor="#00796b"/>
-                                <Label Text="{Binding MetodoPago}"
-                                       FontSize="14"
-                                       TextColor="#00796b"/>
-                                <Label Text="Fecha de pago:"
-                                       FontSize="14"
-                                       TextColor="#00796b"/>
-                                <Label Text="{Binding FechaPago, StringFormat='{0:yyyy-MM-dd'}"
-                                       FontSize="14"
-                                       TextColor="#00796b"/>
-                                <StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding MetodoPago}" 
+                                       FontAttributes="Bold" 
+                                       FontSize="18" 
+                                       TextColor="#e65100" />
+                                <Label Text="{Binding Cantidad, StringFormat='Cantidad: {0:C}'}" 
+                                       FontSize="14" 
+                                       TextColor="#ffb74d" />
+                                <Label Text="{Binding FechaPago, StringFormat='Fecha de Pago: {0:yyyy-MM-dd}'}" 
+                                       FontSize="14" 
+                                       TextColor="#ffb74d" />
+                                <StackLayout Orientation="Horizontal" Spacing="10">
                                     <Button Text="Editar"
-                                            BackgroundColor="#004d40"
+                                            BackgroundColor="#e65100"
                                             TextColor="White"
-                                            Clicked="OnEditPagoClicked" />
+                                            Command="{Binding BindingContext.EditarPagoCommand, Source={x:Reference Self}}"
+                                            CommandParameter="{Binding .}" />
                                     <Button Text="Eliminar"
                                             BackgroundColor="#d32f2f"
                                             TextColor="White"
-                                            Clicked="OnDeletePagoClicked" />
+                                            Command="{Binding BindingContext.EliminarPagoCommand, Source={x:Reference Self}}"
+                                            CommandParameter="{Binding .}" />
                                 </StackLayout>
                             </StackLayout>
-                        </ViewCell>
+                        </Frame>
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
