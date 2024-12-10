@@ -11,11 +11,11 @@ namespace ProyectoProgrmacion
             InitializeComponent();
             _serviceProvider = serviceProvider;
 
-            // Mostrar LoginPage al inicio
+
             MainPage = new NavigationPage(_serviceProvider.GetService<Views.LoginPage>());
         }
 
-        // Método para cambiar a AppShell después del inicio de sesión
+        
         public void NavigateToAppShell()
         {
             MainPage = _serviceProvider.GetService<AppShell>();

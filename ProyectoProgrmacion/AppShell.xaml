@@ -5,29 +5,33 @@
        x:Class="ProyectoProgrmacion.AppShell"
        Title="Sistema de Gestión">
 
-    <FlyoutItem Title="Inicio" Icon="icon_home.png">
-        <Tab>
-            <ShellContent Title="Home" ContentTemplate="{DataTemplate views:Home}" />
+    <TabBar>
+        <Tab Title="Pedidos" Icon="icon_pedido.png">
+            <ShellContent
+                Title="Detalles de Pedidos"
+                ContentTemplate="{DataTemplate views:DetallesPedidosPage}"
+                Route="detallesPedido" />
         </Tab>
-    </FlyoutItem>
+        <Tab Title="Encabezados de Pedidos" Icon="icon_pedido.png">
+            <ShellContent
+             Title="Encabezados de Pedidos"
+             ContentTemplate="{DataTemplate views:EncabezadoPedidosPage}"
+             Route="EncabezadoPedidosPage" />
+        </Tab>
+        <Tab Title="Piezas" Icon="icon_pieza.png">
+            <ShellContent
+             Title="Piezas"
+             ContentTemplate="{DataTemplate views:PiezasPage}"
+             Route="PiezasPage" />
+        </Tab>
 
-    <FlyoutItem Title="Pedidos" Icon="icon_pedido.png">
-        <Tab>
-            <ShellContent Title="Detalles de Pedidos" ContentTemplate="{DataTemplate views:DetallesPedidosPage}" />
-            <ShellContent Title="Encabezados de Pedidos" ContentTemplate="{DataTemplate views:EncabezadoPedidosPage}" />
-        </Tab>
-    </FlyoutItem>
 
-    <FlyoutItem Title="Piezas" Icon="icon_pieza.png">
-        <Tab>
-            <ShellContent Title="Piezas" ContentTemplate="{DataTemplate views:PiezasPage}" />
+        <Tab Title="Pagos" Icon="icon_pago.png">
+            <ShellContent
+     Title="Pagos"
+     ContentTemplate="{DataTemplate views:SistemaPagoPage}"
+     Route="SistemaPagoPage" />
         </Tab>
-    </FlyoutItem>
-
-    <FlyoutItem Title="Pagos" Icon="icon_pago.png">
-        <Tab>
-            <ShellContent Title="Pagos" ContentTemplate="{DataTemplate views:SistemaPagoPage}" />
-        </Tab>
-    </FlyoutItem>
+    </TabBar>
 
 </Shell>

@@ -18,25 +18,14 @@ namespace ProyectoProgrmacion.Views
             string username = UsernameEntry.Text;
             string password = PasswordEntry.Text;
 
-            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+            if (username == "TrAndroid" && password == "12345")
             {
-                ErrorLabel.Text = "Please enter both username and password.";
-                ErrorLabel.IsVisible = true;
-                return;
-            }
-
-            bool isValid = await _authService.ValidarCredencialesAsync(username, password);
-            if (isValid)
-            {
-                if (Application.Current is App app)
-                {
-                    app.NavigateToAppShell();
-                }
+                await DisplayAlert("Inicio de sesión", "¡Inicio de sesión exitoso!", "OK");
+                await Navigation.PushAsync(new AppShell());
             }
             else
             {
-                ErrorLabel.Text = "Invalid username or password.";
-                ErrorLabel.IsVisible = true;
+                await DisplayAlert("Inicio de sesión fallido", "Usuario o contraseña incorrectos.", "OK");
             }
         }
     }
