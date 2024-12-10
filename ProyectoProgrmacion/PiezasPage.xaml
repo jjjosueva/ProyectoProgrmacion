@@ -12,7 +12,7 @@
                    HorizontalOptions="Center"
                    TextColor="#33691e" />
 
-            <!-- Campos de Entrada -->
+            
             <Label Text="Nombre de la Pieza" 
                    FontSize="20" 
                    TextColor="#33691e" 
@@ -55,14 +55,14 @@
                    TextColor="White"
                    Margin="0,0,0,10" />
 
-            <!-- Botón para Agregar la Pieza -->
+           
             <Button Text="Agregar Pieza"
                     BackgroundColor="#33691e"
                     TextColor="White"
                     Command="{Binding AgregarPiezaCommand}"
                     Margin="0,0,0,20" />
 
-            <!-- CollectionView para Mostrar las Piezas -->
+            
             <Label Text="Piezas Guardadas"
                    FontSize="18"
                    FontAttributes="Bold"
@@ -108,6 +108,12 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+
+            <Button Text="Siguiente"
+        BackgroundColor="#2e7d32"
+        TextColor="White"
+        Command="{Binding NavegarSiguienteCommand}" />
+            
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

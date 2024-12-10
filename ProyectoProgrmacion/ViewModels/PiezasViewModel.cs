@@ -42,6 +42,8 @@ namespace ProyectoProgrmacion.ViewModels
         public Command<Pieza> EditarPiezaCommand { get; }
         public Command<Pieza> EliminarPiezaCommand { get; }
 
+        public Command NavegarSiguienteCommand { get; }
+
         public PiezasViewModel(PedidoService pedidoService, IServiceProvider serviceProvider)
         {
             _pedidoService = pedidoService;
@@ -53,6 +55,7 @@ namespace ProyectoProgrmacion.ViewModels
             AgregarPiezaCommand = new Command(async () => await AgregarPieza());
             EditarPiezaCommand = new Command<Pieza>(async (pieza) => await EditarPieza(pieza));
             EliminarPiezaCommand = new Command<Pieza>(async (pieza) => await EliminarPieza(pieza));
+            NavegarSiguienteCommand = new Command(async () => await NavegarSiguiente());
 
             CargarPiezas();
         }
@@ -68,13 +71,13 @@ namespace ProyectoProgrmacion.ViewModels
 
         private async Task AgregarPieza()
         {
-            // Depuración: Imprimir los valores ingresados
+            
             System.Diagnostics.Debug.WriteLine($"Nombre: {NuevaPieza.Nombre}");
             System.Diagnostics.Debug.WriteLine($"Descripcion: {NuevaPieza.Descripcion}");
             System.Diagnostics.Debug.WriteLine($"Precio: {NuevaPieza.Precio}");
             System.Diagnostics.Debug.WriteLine($"ImagenURL: {NuevaPieza.ImagenURL}");
 
-            // Validación de campos con mensajes específicos
+           
             if (NuevaPieza == null)
             {
                 await Application.Current.MainPage.DisplayAlert("Error", "La pieza no puede ser nula.", "OK");
@@ -105,7 +108,7 @@ namespace ProyectoProgrmacion.ViewModels
                 return;
             }
 
-            // Validar que la URL de la imagen sea accesible
+            
             try
             {
                 var httpClient = new System.Net.Http.HttpClient();
@@ -122,14 +125,14 @@ namespace ProyectoProgrmacion.ViewModels
                 return;
             }
 
-            // Agregar la pieza a la lista
+            
             PiezasList.Add(NuevaPieza);
 
-            // Guardar en el servicio
+            
             await _pedidoService.GuardarPiezasAsync(new List<Pieza>(PiezasList));
             await Application.Current.MainPage.DisplayAlert("Éxito", "Pieza agregada exitosamente.", "OK");
 
-            // Resetear campos
+           
             NuevaPieza = new Pieza();
         }
 
@@ -137,7 +140,7 @@ namespace ProyectoProgrmacion.ViewModels
         {
             if (pieza != null)
             {
-                // Lógica de edición (puedes implementar más funcionalidad aquí)
+                
                 await _pedidoService.GuardarPiezasAsync(new List<Pieza>(PiezasList));
                 await Application.Current.MainPage.DisplayAlert("Éxito", "Pieza editada exitosamente.", "OK");
             }
@@ -154,6 +157,20 @@ namespace ProyectoProgrmacion.ViewModels
                     await _pedidoService.GuardarPiezasAsync(new List<Pieza>(PiezasList));
                     await Application.Current.MainPage.DisplayAlert("Éxito", "Pieza eliminada exitosamente.", "OK");
                 }
+            }
+        }
+
+        private async Task NavegarSiguiente()
+        {
+
+            var SistemaPagoPage = _serviceProvider.GetService<SistemaPagoPage>();
+            if (SistemaPagoPage != null)
+            {
+                await Application.Current.MainPage.Navigation.PushAsync(SistemaPagoPage);
+            }
+            else
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "No se pudo navegar a SistemaPagoPage.", "OK");
             }
         }
 

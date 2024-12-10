@@ -54,6 +54,7 @@ namespace ProyectoProgrmacion.ViewModels
             EditarPagoCommand = new Command<Pago>(async (pago) => await EditarPago(pago));
             EliminarPagoCommand = new Command<Pago>(async (pago) => await EliminarPago(pago));
 
+
             CargarPagos();
         }
 

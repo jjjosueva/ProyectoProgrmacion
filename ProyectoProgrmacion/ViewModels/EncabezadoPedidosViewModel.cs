@@ -49,7 +49,7 @@ namespace ProyectoProgrmacion.ViewModels
             _serviceProvider = serviceProvider;
 
             EncabezadosList = new ObservableCollection<EncabezadoPedido>();
-            NuevoEncabezado = new EncabezadoPedido(); // Inicialización
+            NuevoEncabezado = new EncabezadoPedido(); 
 
             AgregarEncabezadoCommand = new Command(async () => await AgregarEncabezado());
             EditarEncabezadoCommand = new Command<EncabezadoPedido>(async (encabezado) => await EditarEncabezado(encabezado));
@@ -70,12 +70,12 @@ namespace ProyectoProgrmacion.ViewModels
 
         private async Task AgregarEncabezado()
         {
-            // Depuración: Imprimir los valores ingresados
+            
             System.Diagnostics.Debug.WriteLine($"Titulo: {NuevoEncabezado.Titulo}");
             System.Diagnostics.Debug.WriteLine($"Descripcion: {NuevoEncabezado.Descripcion}");
             System.Diagnostics.Debug.WriteLine($"FechaEntrega: {NuevoEncabezado.FechaEntrega}");
 
-            // Validación de campos con mensajes específicos
+            
             if (NuevoEncabezado == null)
             {
                 await Application.Current.MainPage.DisplayAlert("Error", "El encabezado del pedido no puede ser nulo.", "OK");
@@ -100,14 +100,14 @@ namespace ProyectoProgrmacion.ViewModels
                 return;
             }
 
-            // Agregar el encabezado a la lista
+            
             EncabezadosList.Add(NuevoEncabezado);
 
-            // Guardar en el servicio
+            
             await _pedidoService.GuardarEncabezadosAsync(new List<EncabezadoPedido>(EncabezadosList));
             await Application.Current.MainPage.DisplayAlert("Éxito", "Encabezado de pedido agregado exitosamente.", "OK");
 
-            // Resetear campos
+          
             NuevoEncabezado = new EncabezadoPedido();
         }
 
@@ -115,7 +115,7 @@ namespace ProyectoProgrmacion.ViewModels
         {
             if (encabezado != null)
             {
-                // Lógica de edición (puedes implementar más funcionalidad aquí)
+                
                 await _pedidoService.GuardarEncabezadosAsync(new List<EncabezadoPedido>(EncabezadosList));
                 await Application.Current.MainPage.DisplayAlert("Éxito", "Encabezado de pedido editado exitosamente.", "OK");
             }
@@ -137,7 +137,7 @@ namespace ProyectoProgrmacion.ViewModels
 
         private async Task NavegarSiguiente()
         {
-            // Instanciar la página a través de DI
+            
             var piezasPage = _serviceProvider.GetService<PiezasPage>();
             if (piezasPage != null)
             {

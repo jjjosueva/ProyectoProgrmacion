@@ -44,14 +44,14 @@
                         BackgroundColor="Black"
                         Margin="0,0,0,10" />
 
-            <!-- Botón para Agregar el Encabezado -->
+            
             <Button Text="Agregar Encabezado"
                     BackgroundColor="#1b5e20"
                     TextColor="White"
                     Command="{Binding AgregarEncabezadoCommand}"
                     Margin="0,0,0,20" />
 
-            <!-- CollectionView para Mostrar los Encabezados -->
+            
             <Label Text="Encabezados Guardados"
                    FontSize="18"
                    FontAttributes="Bold"
@@ -94,7 +94,7 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <!-- Botón para Navegar a la Siguiente Página -->
+            
             <Button Text="Siguiente"
                     BackgroundColor="#2e7d32"
                     TextColor="White"

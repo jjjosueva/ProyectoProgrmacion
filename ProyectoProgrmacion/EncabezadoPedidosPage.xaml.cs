@@ -1,4 +1,4 @@
-﻿// C:\Users\USUARIO\Documents\PROGRAMACION 4\ProyectoProgrmacion\EncabezadoPedidosPage.xaml.cs
+﻿
 using Microsoft.Maui.Controls;
 using ProyectoProgrmacion.ViewModels;
 
