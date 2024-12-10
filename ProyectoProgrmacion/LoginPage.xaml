@@ -1,0 +1,85 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProyectoProgrmacion.Views.LoginPage"
+             Title="My Account"
+             BackgroundColor="#E0F2F1">
+
+    <AbsoluteLayout>
+        <!-- Fondo decorativo -->
+        <BoxView BackgroundColor="#004D40"
+                 AbsoluteLayout.LayoutBounds="0,0,1,0.5"
+                 AbsoluteLayout.LayoutFlags="All" />
+
+        <BoxView BackgroundColor="#FF7043"
+                 AbsoluteLayout.LayoutBounds="0,0.5,1,0.5"
+                 AbsoluteLayout.LayoutFlags="All" />
+
+        <!-- Contenedor principal -->
+        <Frame AbsoluteLayout.LayoutBounds="0.5,0.5,0.85,0.6"
+               AbsoluteLayout.LayoutFlags="All"
+               CornerRadius="20"
+               BackgroundColor="White"
+               Padding="20"
+               HasShadow="True">
+
+            <VerticalStackLayout Spacing="15">
+
+                <!-- Icono de Usuario -->
+                <Image Source="user_icon.png"
+                       HeightRequest="80"
+                       WidthRequest="80"
+                       HorizontalOptions="Center" />
+
+                <!-- Campo de Usuario -->
+                <VerticalStackLayout>
+                    <Label Text="Login"
+                           FontSize="14"
+                           TextColor="#004D40" />
+                    <Entry x:Name="UsernameEntry"
+                           Placeholder="Enter your username"
+                           BackgroundColor="#E0F2F1"
+                           TextColor="Black"
+                           Margin="0,5,0,0" />
+                </VerticalStackLayout>
+
+                <!-- Campo de Contraseña -->
+                <VerticalStackLayout>
+                    <Label Text="Password"
+                           FontSize="14"
+                           TextColor="#004D40" />
+                    <Entry x:Name="PasswordEntry"
+                           Placeholder="Enter your password"
+                           IsPassword="True"
+                           BackgroundColor="#E0F2F1"
+                           TextColor="Black"
+                           Margin="0,5,0,0" />
+                </VerticalStackLayout>
+
+                <!-- Botón de Iniciar Sesión -->
+                <Button Text="Sign In"
+                        BackgroundColor="#FF7043"
+                        TextColor="White"
+                        CornerRadius="20"
+                        FontAttributes="Bold"
+                        Clicked="OnLoginButtonClicked"
+                        Margin="0,15,0,0" />
+
+                <!-- Label para Mostrar Errores -->
+                <Label x:Name="ErrorLabel"
+                       TextColor="#FF7043"
+                       FontSize="12"
+                       IsVisible="False"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+
+                <!-- Enlace de Olvidó Contraseña -->
+                <Label Text="Forgot password?"
+                       FontSize="12"
+                       TextColor="#FF7043"
+                       HorizontalOptions="Center"
+                       VerticalOptions="End"
+                       Margin="0,10,0,0" />
+            </VerticalStackLayout>
+        </Frame>
+    </AbsoluteLayout>
+</ContentPage>

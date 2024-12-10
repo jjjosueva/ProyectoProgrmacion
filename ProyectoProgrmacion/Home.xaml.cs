@@ -1,4 +1,3 @@
-// ProyectoProgrmacion/Views/Home.xaml.cs
 using Microsoft.Maui.Controls;
 using ProyectoProgrmacion.ViewModels;
 

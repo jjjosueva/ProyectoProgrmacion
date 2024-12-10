@@ -1,5 +1,4 @@
-﻿// ProyectoProgrmacion/MauiProgram.cs
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using ProyectoProgrmacion.Services;
 using ProyectoProgrmacion.ViewModels;
@@ -24,19 +23,22 @@ namespace ProyectoProgrmacion
             builder.Logging.AddDebug();
 #endif
 
-            // Registrar los servicios como Singleton
+            // Registrar servicios
+            builder.Services.AddSingleton<AuthService>();
             builder.Services.AddSingleton<PiezaService>();
             builder.Services.AddSingleton<PagoService>();
             builder.Services.AddSingleton<PedidoService>();
 
-            // Registrar los ViewModels como Transient
+            // Registrar ViewModels
             builder.Services.AddTransient<DetallesPedidosViewModel>();
             builder.Services.AddTransient<EncabezadoPedidosViewModel>();
             builder.Services.AddTransient<PiezasViewModel>();
             builder.Services.AddTransient<SistemaPagoViewModel>();
             builder.Services.AddTransient<HomeViewModel>();
 
-            // Registrar las Vistas como Transient
+            // Registrar páginas
+            builder.Services.AddSingleton<AppShell>();
+            builder.Services.AddTransient<LoginPage>();
             builder.Services.AddTransient<DetallesPedidosPage>();
             builder.Services.AddTransient<EncabezadoPedidosPage>();
             builder.Services.AddTransient<PiezasPage>();
