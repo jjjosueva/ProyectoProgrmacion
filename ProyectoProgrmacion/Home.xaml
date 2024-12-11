@@ -6,16 +6,15 @@
 
     <VerticalStackLayout Padding="20" Spacing="15" VerticalOptions="Center">
         <Label Text="{Binding WelcomeMessage}"
-               FontSize="24"
+               FontSize="40"
                FontAttributes="Bold"
                HorizontalOptions="Center"
                TextColor="#004d40" />
 
-        <Button Text="Ir a Pedidos"
-                BackgroundColor="#004d40"
-                TextColor="White"
-                Command="{Binding NavigateToPedidosCommand}"
-                HorizontalOptions="Center"
-                WidthRequest="200" />
+        <HorizontalStackLayout HorizontalOptions="Center">
+            <Image Source="imagen_de_bienvenida.png" 
+                   HeightRequest="300"/>
+        </HorizontalStackLayout>
+
     </VerticalStackLayout>
 </ContentPage>

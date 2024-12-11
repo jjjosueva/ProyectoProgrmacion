@@ -1,12 +1,11 @@
-﻿// ProyectoProgrmacion/ViewModels/SistemaPagoViewModel.cs
-using ProyectoProgrmacion.Models;
+﻿using ProyectoProgrmacion.Models;
 using ProyectoProgrmacion.Services;
-using ProyectoProgrmacion.Views;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Microsoft.Maui.Controls;
+using System;
 
 namespace ProyectoProgrmacion.ViewModels
 {
@@ -47,95 +46,110 @@ namespace ProyectoProgrmacion.ViewModels
             _pedidoService = pedidoService;
             _serviceProvider = serviceProvider;
 
+            // Inicializar listas y comandos
             PagosList = new ObservableCollection<Pago>();
-            NuevoPago = new Pago(); // Inicialización
+            NuevoPago = new Pago();
 
             AgregarPagoCommand = new Command(async () => await AgregarPago());
             EditarPagoCommand = new Command<Pago>(async (pago) => await EditarPago(pago));
             EliminarPagoCommand = new Command<Pago>(async (pago) => await EliminarPago(pago));
 
-
+            // Cargar datos iniciales
             CargarPagos();
         }
 
         private async void CargarPagos()
         {
-            var lista = await _pedidoService.CargarPagosAsync();
-            foreach (var pago in lista)
+            try
             {
-                PagosList.Add(pago);
+                var lista = await _pedidoService.CargarPagosAsync();
+                foreach (var pago in lista)
+                {
+                    PagosList.Add(pago);
+                }
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", $"Error al cargar los pagos: {ex.Message}", "OK");
             }
         }
 
         private async Task AgregarPago()
         {
-            // Depuración: Imprimir los valores ingresados
-            System.Diagnostics.Debug.WriteLine($"Cantidad: {NuevoPago.Cantidad}");
-            System.Diagnostics.Debug.WriteLine($"MetodoPago: {NuevoPago.MetodoPago}");
-            System.Diagnostics.Debug.WriteLine($"FechaPago: {NuevoPago.FechaPago}");
-
-            // Validación de campos con mensajes específicos
-            if (NuevoPago == null)
+            try
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "El pago no puede ser nulo.", "OK");
-                return;
-            }
+                // Validación de los campos del pago, incluida la verificación de 'Cantidad'
+                if (NuevoPago == null || string.IsNullOrWhiteSpace(NuevoPago.MetodoPago) ||
+                    !EsCantidadValida(NuevoPago.Cantidad) || NuevoPago.FechaPago == default)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Error", "Por favor, complete todos los campos correctamente.", "OK");
+                    return;
+                }
 
-            if (NuevoPago.Cantidad <= 0)
+                // Agregar nuevo pago
+                PagosList.Add(NuevoPago);
+                await _pedidoService.GuardarPagosAsync(new List<Pago>(PagosList));
+
+                // Confirmar acción
+                await Application.Current.MainPage.DisplayAlert("Éxito", "Pago agregado correctamente.", "OK");
+
+                // Resetear el modelo para el próximo ingreso
+                NuevoPago = new Pago();
+            }
+            catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "La cantidad debe ser mayor a cero.", "OK");
-                return;
+                await Application.Current.MainPage.DisplayAlert("Error", $"Error al agregar el pago: {ex.Message}", "OK");
             }
+        }
 
-            if (string.IsNullOrWhiteSpace(NuevoPago.MetodoPago))
-            {
-                await Application.Current.MainPage.DisplayAlert("Error", "El campo 'Método de Pago' es obligatorio.", "OK");
-                return;
-            }
-
-            if (NuevoPago.FechaPago == default)
-            {
-                await Application.Current.MainPage.DisplayAlert("Error", "Por favor seleccione una fecha de pago válida.", "OK");
-                return;
-            }
-
-            // Agregar el pago a la lista
-            PagosList.Add(NuevoPago);
-
-            // Guardar en el servicio
-            await _pedidoService.GuardarPagosAsync(new List<Pago>(PagosList));
-            await Application.Current.MainPage.DisplayAlert("Éxito", "Pago agregado exitosamente.", "OK");
-
-            // Resetear campos
-            NuevoPago = new Pago();
+        // Método para validar que la cantidad sea un valor decimal válido
+        private bool EsCantidadValida(decimal cantidad)
+        {
+            return cantidad > 0;  // Asegura que la cantidad sea mayor a 0, ajusta la validación según sea necesario
         }
 
         private async Task EditarPago(Pago pago)
         {
-            if (pago != null)
+            try
             {
-                // Lógica de edición (puedes implementar más funcionalidad aquí)
-                await _pedidoService.GuardarPagosAsync(new List<Pago>(PagosList));
-                await Application.Current.MainPage.DisplayAlert("Éxito", "Pago editado exitosamente.", "OK");
+                if (pago != null)
+                {
+                    await _pedidoService.GuardarPagosAsync(new List<Pago>(PagosList));
+                    await Application.Current.MainPage.DisplayAlert("Éxito", "Pago editado correctamente.", "OK");
+                }
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", $"Error al editar el pago: {ex.Message}", "OK");
             }
         }
 
         private async Task EliminarPago(Pago pago)
         {
-            if (pago != null)
+            try
             {
-                bool confirm = await Application.Current.MainPage.DisplayAlert("Confirmar", $"¿Deseas eliminar el pago de '{pago.Cantidad:C}'?", "Sí", "No");
-                if (confirm)
+                if (pago != null)
                 {
-                    PagosList.Remove(pago);
-                    await _pedidoService.GuardarPagosAsync(new List<Pago>(PagosList));
-                    await Application.Current.MainPage.DisplayAlert("Éxito", "Pago eliminado exitosamente.", "OK");
+                    bool confirm = await Application.Current.MainPage.DisplayAlert("Confirmar", "¿Estás seguro de eliminar este pago?", "Sí", "No");
+                    if (confirm)
+                    {
+                        PagosList.Remove(pago);
+                        await _pedidoService.GuardarPagosAsync(new List<Pago>(PagosList));
+                        await Application.Current.MainPage.DisplayAlert("Éxito", "Pago eliminado correctamente.", "OK");
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", $"Error al eliminar el pago: {ex.Message}", "OK");
             }
         }
 
+        // Implementación de INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string name = null) =>
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
     }
 }

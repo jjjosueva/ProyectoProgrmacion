@@ -1,32 +1,43 @@
 using Microsoft.Maui.Controls;
-using ProyectoProgrmacion.Services;
+using ProyectoProgrmacion.ViewModels;
+using ProyectoProgrmacion.Servicios;
+using System;
 
-namespace ProyectoProgrmacion.Views
+namespace ProyectoProgrmacion
 {
     public partial class LoginPage : ContentPage
     {
         private readonly AuthService _authService;
 
-        public LoginPage(AuthService authService)
+        public LoginPage()
         {
             InitializeComponent();
-            _authService = authService;
+            _authService = new AuthService();
         }
 
         private async void OnLoginButtonClicked(object sender, EventArgs e)
         {
-            string username = UsernameEntry.Text;
-            string password = PasswordEntry.Text;
+            var username = UsernameEntry.Text;
+            var password = PasswordEntry.Text;
 
-            if (username == "TrAndroid" && password == "12345")
+            var token = await _authService.LoginAsync(username, password);
+
+            if (token != null)
             {
-                await DisplayAlert("Inicio de sesión", "¡Inicio de sesión exitoso!", "OK");
-                await Navigation.PushAsync(new AppShell());
+                await DisplayAlert("Completado", "Login exitoso", "OK");
+
+                (Application.Current as App)?.NavigateToAppShell();
             }
             else
             {
-                await DisplayAlert("Inicio de sesión fallido", "Usuario o contraseña incorrectos.", "OK");
+                ErrorLabel.Text = "Nombre o Contraseña incorrectos";
+                ErrorLabel.IsVisible = true;
             }
+        }
+
+        private async void OnRegisterButtonClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new Registrar());
         }
     }
 }

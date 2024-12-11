@@ -11,11 +11,9 @@ namespace ProyectoProgrmacion
             InitializeComponent();
             _serviceProvider = serviceProvider;
 
-
-            MainPage = new NavigationPage(_serviceProvider.GetService<Views.LoginPage>());
+            MainPage = new NavigationPage(_serviceProvider.GetService<LoginPage>());
         }
 
-        
         public void NavigateToAppShell()
         {
             MainPage = _serviceProvider.GetService<AppShell>();

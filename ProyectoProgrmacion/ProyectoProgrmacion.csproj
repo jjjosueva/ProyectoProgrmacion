@@ -92,6 +92,9 @@
 	  <MauiXaml Update="PiezasPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Registrar.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="SistemaPagoPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

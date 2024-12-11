@@ -3,35 +3,43 @@
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:views="clr-namespace:ProyectoProgrmacion.Views"
        x:Class="ProyectoProgrmacion.AppShell"
+       FlyoutHeaderBehavior="CollapseOnScroll"
        Title="Sistema de Gestión">
 
-    <TabBar>
-        <Tab Title="Pedidos" Icon="icon_pedido.png">
+    <FlyoutItem  FlyoutDisplayOptions="AsMultipleItems">
+        <Tab Title="Home" Icon="home.png">
+            <ShellContent
+                Title="Detalles de Pedidos"
+                ContentTemplate="{DataTemplate views:Home}"
+                Route="detallesPedido" />
+        </Tab>
+        <Tab Title="Pedidos" Icon="detalleslogo.png">
             <ShellContent
                 Title="Detalles de Pedidos"
                 ContentTemplate="{DataTemplate views:DetallesPedidosPage}"
                 Route="detallesPedido" />
         </Tab>
-        <Tab Title="Encabezados de Pedidos" Icon="icon_pedido.png">
+        <Tab Title="Encabezados de Pedidos" Icon="encabezadologo.png">
             <ShellContent
-             Title="Encabezados de Pedidos"
-             ContentTemplate="{DataTemplate views:EncabezadoPedidosPage}"
-             Route="EncabezadoPedidosPage" />
+                 Title="Encabezados de Pedidos"
+                 ContentTemplate="{DataTemplate views:EncabezadoPedidosPage}"
+                 Route="EncabezadoPedidosPage" />
         </Tab>
-        <Tab Title="Piezas" Icon="icon_pieza.png">
+        <Tab Title="Piezas" Icon="imagen_de_bienvenida.png">
             <ShellContent
-             Title="Piezas"
-             ContentTemplate="{DataTemplate views:PiezasPage}"
-             Route="PiezasPage" />
+                
+                 Title="Piezas"
+                 ContentTemplate="{DataTemplate views:PiezasPage}"
+                 Route="PiezasPage" />
         </Tab>
 
 
-        <Tab Title="Pagos" Icon="icon_pago.png">
+        <Tab Title="Pagos" Icon="pago.png">
             <ShellContent
-     Title="Pagos"
-     ContentTemplate="{DataTemplate views:SistemaPagoPage}"
-     Route="SistemaPagoPage" />
+                 Title="Pagos"
+                 ContentTemplate="{DataTemplate views:SistemaPagoPage}"
+                 Route="SistemaPagoPage" />
         </Tab>
-    </TabBar>
+    </FlyoutItem>
 
 </Shell>

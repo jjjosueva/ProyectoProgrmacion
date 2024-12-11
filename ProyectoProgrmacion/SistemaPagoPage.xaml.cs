@@ -1,4 +1,3 @@
-// C:\Users\USUARIO\Documents\PROGRAMACION 4\ProyectoProgrmacion\SistemaPagoPage.xaml.cs
 using Microsoft.Maui.Controls;
 using ProyectoProgrmacion.ViewModels;
 
@@ -9,7 +8,11 @@ namespace ProyectoProgrmacion.Views
         public SistemaPagoPage(SistemaPagoViewModel viewModel)
         {
             InitializeComponent();
+
+            // Asignar el ViewModel como BindingContext
             BindingContext = viewModel;
+
+            System.Diagnostics.Debug.WriteLine("SistemaPagoPage inicializada correctamente.");
         }
     }
 }

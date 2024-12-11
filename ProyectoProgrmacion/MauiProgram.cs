@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using ProyectoProgrmacion.Services;
+using ProyectoProgrmacion.Servicios;
 using ProyectoProgrmacion.ViewModels;
 using ProyectoProgrmacion.Views;
 
@@ -28,6 +29,12 @@ namespace ProyectoProgrmacion
             builder.Services.AddSingleton<PiezaService>();
             builder.Services.AddSingleton<PagoService>();
             builder.Services.AddSingleton<PedidoService>();
+            builder.Services.AddSingleton<LoginPage>();
+            builder.Services.AddSingleton<HomeViewModel>();
+            builder.Services.AddSingleton<Home>();
+
+
+
 
             // Registrar ViewModels
             builder.Services.AddTransient<DetallesPedidosViewModel>();
