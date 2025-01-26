@@ -2,17 +2,18 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProyectoProgrmacion.Views.PiezasPage"
-             BackgroundColor="#f1f8e9">
-
+             BackgroundColor="#f1f8e9"
+             Title="Gestión de Piezas">
+    
     <ScrollView>
         <VerticalStackLayout Padding="20">
+
             <Label Text="Gestión de Piezas"
                    FontSize="30"
                    FontAttributes="Bold"
                    HorizontalOptions="Center"
                    TextColor="#33691e" />
 
-            
             <Label Text="Nombre de la Pieza" 
                    FontSize="20" 
                    TextColor="#33691e" 
@@ -55,43 +56,48 @@
                    TextColor="White"
                    Margin="0,0,0,10" />
 
-           
             <Button Text="Agregar Pieza"
                     BackgroundColor="#33691e"
                     TextColor="White"
                     Command="{Binding AgregarPiezaCommand}"
                     Margin="0,0,0,20" />
 
-            
             <Label Text="Piezas Guardadas"
                    FontSize="18"
                    FontAttributes="Bold"
                    TextColor="#33691e"
                    Margin="0,20,0,10"/>
 
-            <CollectionView ItemsSource="{Binding PiezasList}"
+            <CollectionView x:Name="Self"
+                            ItemsSource="{Binding PiezasList}"
                             SelectionMode="Single"
-                            SelectedItem="{Binding PiezaSeleccionada}"
                             Margin="0,0,0,20">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame BorderColor="#558b2f" CornerRadius="10" Padding="10" Margin="5">
-                            <StackLayout>
+                            <VerticalStackLayout>
                                 <Label Text="{Binding Nombre}" 
                                        FontAttributes="Bold" 
                                        FontSize="18" 
                                        TextColor="#33691e" />
+                                <Label Text="Descripcion" 
+                                       FontSize="14"
+                                       FontAttributes="Bold"/>
                                 <Label Text="{Binding Descripcion}" 
                                        FontSize="14" 
                                        TextColor="#558b2f" />
-                                <Label Text="{Binding Precio, StringFormat='Precio: {0:C}'}" 
+                                <Label Text="Precio" 
+                                       FontSize="14"
+                                       FontAttributes="Bold"/>
+                                <Label Text="{Binding Precio}"
                                        FontSize="14" 
                                        TextColor="#558b2f" />
                                 <Image Source="{Binding ImagenURL}" 
-                                       HeightRequest="100" 
+                                       HeightRequest="100"  
+                                       WidthRequest="100"
                                        Aspect="AspectFill"
                                        Margin="0,5,0,5"/>
-                                <StackLayout Orientation="Horizontal" Spacing="10">
+                                <HorizontalStackLayout Spacing="10">
                                     <Button Text="Editar"
                                             BackgroundColor="#33691e"
                                             TextColor="White"
@@ -102,18 +108,18 @@
                                             TextColor="White"
                                             Command="{Binding BindingContext.EliminarPiezaCommand, Source={x:Reference Self}}"
                                             CommandParameter="{Binding .}" />
-                                </StackLayout>
-                            </StackLayout>
+                                </HorizontalStackLayout>
+                            </VerticalStackLayout>
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
             <Button Text="Siguiente"
-        BackgroundColor="#2e7d32"
-        TextColor="White"
-        Command="{Binding NavegarSiguienteCommand}" />
-            
+                    BackgroundColor="#2e7d32"
+                    TextColor="White"
+                    Command="{Binding NavegarSiguienteCommand}" />
+
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
